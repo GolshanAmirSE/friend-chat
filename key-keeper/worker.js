@@ -1,16 +1,16 @@
-// Friend Chat — key keeper (a Cloudflare Worker)
+// Friend Chat - key keeper (a Cloudflare Worker)
 //
 // Keeps your AI keys secret. The app on your website talks to the AI services
 // through this small service, which adds your keys on its side, so visitors
 // never see a key and never have to type one.
 //
-// Add these in Cloudflare → Workers & Pages → (this worker) → Settings →
+// Add these in Cloudflare > Workers & Pages > (this worker) > Settings >
 // Variables and Secrets. Use type "Secret" for keys and the invite code.
 //
 //   ALLOWED_ORIGINS  Text    Your app's address, without a path. Example: https://yourname.github.io
-//   GEMINI_KEY       Secret  Google Gemini key — text chat, voice and answers from the internet
-//   OPENAI_KEY       Secret  OpenAI key — natural voices and live, ChatGPT-style calls (optional)
-//   AZURE_ENDPOINT   Text    Microsoft Foundry endpoint — live video friends (optional)
+//   GEMINI_KEY       Secret  Google Gemini key - text chat, voice and answers from the internet
+//   OPENAI_KEY       Secret  OpenAI key - natural voices and live, ChatGPT-style calls (optional)
+//   AZURE_ENDPOINT   Text    Microsoft Foundry endpoint - live video friends (optional)
 //                            Example: https://your-resource.services.ai.azure.com/
 //   AZURE_KEY        Secret  Microsoft Foundry key (optional)
 //   INVITE_CODE      Secret  A code your friends type once in the app (optional, recommended)
@@ -48,6 +48,19 @@ export default {
         status,
         headers: { ...cors, "Content-Type": "application/json" },
       });
+
+    // Opened directly in a browser: show whether the key keeper is set up (never shows the keys).
+    if (!origin && request.method === "GET" && /^\/?(status)?$/.test(url.pathname.replace(/^\/+/, ""))) {
+      const setup = {
+        keyKeeper: "running",
+        allowedOrigins: allowed,
+        gemini: Boolean(env.GEMINI_KEY),
+        openai: Boolean(env.OPENAI_KEY),
+        azure: Boolean(env.AZURE_KEY && env.AZURE_ENDPOINT),
+        inviteCode: Boolean(env.INVITE_CODE),
+      };
+      return new Response(JSON.stringify(setup, null, 2), { headers: { "Content-Type": "application/json" } });
+    }
 
     if (request.method === "OPTIONS") return new Response(null, { status: originOk ? 204 : 403, headers: cors });
     if (!originOk) return reply(403, "This address isn't allowed to use the key keeper. Add it to ALLOWED_ORIGINS.");
