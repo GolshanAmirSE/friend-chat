@@ -1,3 +1,6 @@
 {
-  "keyService": "https://friend-chat.golshanamir.workers.dev/"
+  "keyService": [
+    "https://friend-chat-keys.golshanamir.workers.dev",
+    "https://golshanamirse-friend-chat.netlify.app/keys"
+  ]
 }

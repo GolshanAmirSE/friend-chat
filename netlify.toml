@@ -1,0 +1,19 @@
+# Netlify is only used for the backup route to the key keeper
+# (netlify/edge-functions/keys.js). The app itself stays on GitHub Pages.
+[build]
+  publish = "."
+  # Only redeploy when the backup route itself changes (saves Netlify's free monthly allowance).
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- netlify/ netlify.toml"
+
+# Anyone opening the Netlify address is sent to the app on GitHub Pages.
+[[redirects]]
+  from = "/"
+  to = "https://golshanamirse.github.io/friend-chat/"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "https://golshanamirse.github.io/friend-chat/"
+  status = 302
+  force = true

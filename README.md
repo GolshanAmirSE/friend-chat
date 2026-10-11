@@ -90,6 +90,30 @@ In the app, **Settings → Check microphone** tells you what's blocking it. The 
    **Mac:** System Settings → Privacy & Security → Microphone → turn on your browser.
 4. Close other apps that may be using the microphone (for example Teams or Zoom).
 
+## Football blocking in Spain: the backup route
+
+During football matches (and some other sports), the big Spanish internet providers block many Cloudflare addresses. The key keeper runs on Cloudflare, so in Spain the app could stop answering during a match. The **backup route** fixes that: a small relay on Netlify, a different network, that passes the app's requests on to your key keeper. It holds **no keys** and needs no settings.
+
+`friend-config.json` lists both addresses. The app checks both, uses the key keeper directly when it answers, and switches to the backup route automatically (also in the middle of a conversation) when it doesn't.
+
+Set it up once (about 5 minutes):
+
+1. Put `netlify.toml` and the `netlify` folder in your repository (next to `index.html`), with the new `index.html` and `friend-config.json`, and push them.
+2. Go to <https://app.netlify.com> and sign up with **GitHub**.
+3. Select **Add new project → Import an existing project → GitHub**. If asked, allow Netlify to see your `friend-chat` repository, then pick it.
+4. Set the **Project name** to `golshanamirse-friend-chat` (or change it afterwards under **Project configuration → Change project name**). Leave everything else as it is and select **Deploy**.
+5. When it's done, open `https://golshanamirse-friend-chat.netlify.app/keys/status`. You should see `"backupRoute": "running"` and your key keeper's details.
+
+If you used a different project name, put your address (ending in `/keys`) as the second entry in `friend-config.json`. Live video friends need the direct route; through the backup route the app uses a normal call instead.
+
+## The page is blank or stays on "Loading Friend Chat…"?
+
+1. Open your key keeper's address with **/status** at the end (for example `https://friend-chat-keys.<your-name>.workers.dev/status`) in the same browser. You should see `"keyKeeper": "running"`.
+   - **It doesn't open:** this network may block Cloudflare workers (some work or school networks do). Try another network, for example your phone on mobile data.
+   - **It shows an error:** the key keeper broke during a change. In Cloudflare, open **Workers & Pages → your worker → Deployments** and roll back to the last version that worked, or paste `key-keeper/worker.js` again and select **Deploy**.
+2. The app stops waiting after a few seconds and tells you when its AI service can't be reached; it keeps trying in the background.
+3. If you see **Friend Chat didn't start**, select **Reload**. If that doesn't help, select **Start fresh**: it resets the app on that device (your invite code stays, but chats saved on that device are cleared). The small *Details* line at the bottom says what went wrong.
+
 ## Publish your own copy on GitHub Pages (no coding needed)
 
 1. Sign in to <https://github.com> (create a free account if you don't have one).
@@ -105,8 +129,9 @@ In the app, **Settings → Check microphone** tells you what's blocking it. The 
 | File | What it is |
 | --- | --- |
 | `index.html` | The whole app in one file |
-| `friend-config.json` | The address of your key keeper (empty = everyone adds their own keys). **Never put keys here.** |
+| `friend-config.json` | The address of your key keeper, then the backup route (empty = everyone adds their own keys). **Never put keys here.** |
 | `key-keeper/worker.js` | The key keeper to paste into Cloudflare (no keys inside) |
+| `netlify.toml`, `netlify/edge-functions/keys.js` | The backup route on Netlify (no keys inside) |
 | `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `apple-touch-icon.png` | App name and icons for phones |
 | `README.md` | This page |
 
@@ -120,3 +145,5 @@ In the app, **Settings → Check microphone** tells you what's blocking it. The 
 ۴. برای تماس زنده و طبیعی (مثل ChatGPT) کلید OpenAI، و برای تماس تصویری زنده، اتصال Microsoft را در «تنظیمات» اضافه کنید.
 
 کلیدها، گفتگوها و خاطرات فقط در مرورگر خودتان روی همین دستگاه ذخیره می‌شوند. اگر لینک را با کسی به اشتراک می‌گذارید، کلیدهایتان را به او ندهید.
+
+**مسیر پشتیبان (برای اسپانیا):** هنگام مسابقه‌های فوتبال، اینترنت‌های بزرگ اسپانیا بعضی آدرس‌های Cloudflare را می‌بندند و برنامه جواب نمی‌دهد. پوشه‌ی `netlify` و فایل `netlify.toml` را به مخزن اضافه کنید، در app.netlify.com با GitHub وارد شوید، مخزن `friend-chat` را با نام `golshanamirse-friend-chat` اضافه کنید و Deploy بزنید. از آن به بعد برنامه خودش در صورت مسدود بودن مسیر اصلی، از مسیر پشتیبان استفاده می‌کند. هیچ کلیدی آنجا لازم نیست.
