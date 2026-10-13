@@ -114,6 +114,22 @@ In the app, **Settings → Check microphone** tells you what's blocking it. The 
    **Mac:** System Settings → Privacy & Security → Microphone → turn on your browser.
 4. Close other apps that may be using the microphone (for example Teams or Zoom).
 
+## The screen turns off during a call?
+
+Since 13 October the screen stays on during voice and video calls, because a phone stops the microphone as soon as its screen goes off. If you lock the phone yourself (side button) or switch to another app, the call picks up again when you come back: the microphone is opened again, or the call reconnects and your friend carries on where you left off. A call that stayed in the background for more than 15 minutes ends instead.
+
+Needs iOS 16.4 or later in Safari (iOS 18.4 or later when opened from the Home Screen). On older phones the app says so during the call: touch the screen now and then, or set a longer Auto-Lock (Settings → Display & Brightness → Auto-Lock).
+
+## Asked for the microphone and camera every time?
+
+Only the browser can remember that you allowed them; a website can't give itself permanent access. Settings → Voice and listening → **Stop the permission questions** shows the steps for the phone or computer you're on. In short:
+
+- **iPhone, in Safari:** tap the button at the left end of the address bar (older iPhones: **aA**), then **⋯** if you see it → **Website Settings** → Microphone and Camera: **Allow**. Safari never asks again for this website.
+- **iPhone, from the Home Screen icon:** iPhone doesn't keep the answer for Home Screen web apps. Either use Friend Chat in Safari with the setting above, or allow every website: Settings app → Apps → Safari → Settings for Websites → Microphone and Camera: **Allow**.
+- **Android / Chrome / Edge:** when asked, choose **Allow while visiting the site** (not "Allow this time").
+
+Video calls now ask for the microphone and camera together, so there's one question instead of two. The app's **Reset** doesn't change these browser settings; change them back in the same place.
+
 ## Crackling or noisy sound on calls?
 
 1. Make sure the newest version runs (the version is at the bottom of **Settings**). Since 13 October, calls on iPhone use only the phone's own call audio: the app's own sound mixer stays off during calls, because a running mixer can make the friend's voice crackle like an old record.
@@ -181,6 +197,10 @@ If you used a different project name, put your address (ending in `/keys`) as th
 **حالت سایلنت آیفون و جستجو در اینترنت:** صدای دوست حتی وقتی آیفون روی سایلنت است پخش می‌شود (iOS 17 به بعد). برای سؤال‌هایی مثل آب‌وهوا و اخبار، برنامه اول با جستجوی گوگل (از طریق Gemini) امتحان می‌کند و اگر کلید رایگان Gemini اجازه ندهد، از جستجوی اینترنتی OpenAI استفاده می‌کند (حدود ۱ سنت برای هر جستجو).
 
 **ChatGPT Voice در تماس صوتی:** تماس‌های صوتی حالا با GPT-Live انجام می‌شوند، همان مدل صدای ChatGPT Voice: دوستتان وقتی حرف می‌زند هم می‌شنود، «اوهوم» می‌گوید، می‌توانید هر لحظه وسط حرفش بپرید و سریع‌تر جواب می‌دهد. برای سؤال‌هایی مثل آب‌وهوا و اخبار، در حین صحبت در اینترنت جستجو می‌کند. یک بار کد key keeper را در Cloudflare به‌روز کنید (بخش «Update the key keeper» بالا). اگر فارسی‌اش را نپسندیدید، در تنظیمات گزینه‌ی «ChatGPT Voice on voice calls» را خاموش کنید.
+
+**خاموش شدن صفحه در تماس:** از نسخه‌ی ۱۳ اکتبر، صفحه‌ی گوشی در طول تماس صوتی و تصویری روشن می‌ماند، چون با خاموش شدن صفحه، گوشی میکروفون را قطع می‌کند. اگر خودتان گوشی را قفل کنید یا به برنامه‌ی دیگری بروید، وقتی برگردید تماس خودش دوباره وصل می‌شود و دوستتان از همان‌جا ادامه می‌دهد (اگر بیشتر از ۱۵ دقیقه بیرون بمانید، تماس تمام می‌شود).
+
+**اجازه‌ی میکروفون و دوربین فقط یک بار:** فقط خود مرورگر می‌تواند این اجازه را به خاطر بسپارد. در Safari آیفون: دکمه‌ی سمت چپ نوار آدرس (در آیفون‌های قدیمی‌تر «aA») ← اگر «⋯» دیدید آن را بزنید ← Website Settings ← میکروفون و دوربین را روی Allow بگذارید. اگر برنامه را از آیکون صفحه‌ی اصلی (Home Screen) باز می‌کنید، آیفون این اجازه را نگه نمی‌دارد؛ یا برنامه را در Safari باز کنید، یا در تنظیمات آیفون: Apps ← Safari ← Microphone و Camera را روی Allow بگذارید (این برای همه‌ی سایت‌ها اعمال می‌شود). راهنمای کامل در تنظیمات برنامه، بخش «Stop the permission questions» است.
 
 **صدای خش‌دار یا نویزدار در تماس:** از نسخه‌ی ۱۳ اکتبر، تماس‌ها در آیفون فقط از صدای تماسِ خودِ گوشی استفاده می‌کنند و میکسر صدای برنامه در طول تماس خاموش می‌ماند، چون روشن بودنش می‌تواند صدای دوستتان را مثل گرامافون قدیمی خش‌دار کند. اگر با ایرپاد یا هدفون بلوتوثی صحبت می‌کنید، آیفون در حالت تماس کیفیت صدا را پایین‌تر می‌آورد؛ برای مقایسه با بلندگوی گوشی امتحان کنید. بعد از هر تماس، در تنظیمات بخش «Latest call» گزارش صدا را نشان می‌دهد؛ اگر عدد «patched» بیشتر از حدود ۲٪ باشد، مشکل از اینترنت (وای‌فای یا موبایل) است.
 
