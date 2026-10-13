@@ -1,6 +1,6 @@
 # Friend Chat
 
-A close friend you can **text, call or video call** — in 22 languages, including Persian (فارسی).
+A close friend you can **text, call or video call** — in 23 languages, including Persian (فارسی) and Kurdish Sorani (کوردی).
 Your friend chats naturally, remembers what you talked about, answers your questions and can check things on the internet for you.
 
 **Open the app:** `https://<your-github-name>.github.io/<repository-name>/`
@@ -23,7 +23,7 @@ Your friend chats naturally, remembers what you talked about, answers your quest
 - **iPhone on silent:** the friend's voice still plays when the iPhone is on silent (iOS 17 or later), like a music app or a phone call.
 - **Live calls (optional):** one natural, flowing conversation — you can interrupt at any moment, like ChatGPT voice.
 
-Languages: English, Persian, Spanish, French, German, Italian, Portuguese, Swedish, Norwegian, Danish, Finnish, Dutch, Turkish, Arabic, Russian, Ukrainian, Polish, Hindi, Urdu, Chinese, Japanese and Korean.
+Languages: English, Persian, Kurdish (Sorani), Spanish, French, German, Italian, Portuguese, Swedish, Norwegian, Danish, Finnish, Dutch, Turkish, Arabic, Russian, Ukrainian, Polish, Hindi, Urdu, Chinese, Japanese and Korean.
 
 ## What you need
 
@@ -136,6 +136,14 @@ Video calls now ask for the microphone and camera together, so there's one quest
 2. **AirPods or other Bluetooth earphones:** while the microphone is on, iPhones switch them to "phone call" sound, which is thinner than music. Try the phone's loudspeaker or wired earphones to compare.
 3. After a call, **Settings → Voice and listening → Latest call** shows a sound report. If *patched* is above about 2%, sound arrived late or got lost on the way: a stronger Wi-Fi or mobile signal fixes that. If it still crackles, select **Copy log** and send it.
 
+## Kurdish (Sorani)
+
+Choose **کوردی سۆرانی · Kurdish (Sorani)** in the language menu at the top (or in the first-time setup). Your friend then writes and speaks everyday Central Kurdish in the Kurdish alphabet, and answers in Persian or any other language when you switch.
+
+- Text chat works best; the AI models write Sorani well.
+- Calls speak Sorani with the friend's natural voice. Sorani is a less common language for these voices, so the accent can sound less native than in Persian.
+- Phones and browsers have no Kurdish speech recognition or Kurdish voices of their own, so the app uses AI transcription and AI voices for Sorani.
+
 ## Football blocking in Spain: the backup route
 
 During football matches (and some other sports), the big Spanish internet providers block many Cloudflare addresses. The key keeper runs on Cloudflare, so in Spain the app could stop answering during a match. The **backup route** fixes that: a small relay on Netlify, a different network, that passes the app's requests on to your key keeper. It holds **no keys** and needs no settings.
@@ -197,6 +205,8 @@ If you used a different project name, put your address (ending in `/keys`) as th
 **حالت سایلنت آیفون و جستجو در اینترنت:** صدای دوست حتی وقتی آیفون روی سایلنت است پخش می‌شود (iOS 17 به بعد). برای سؤال‌هایی مثل آب‌وهوا و اخبار، برنامه اول با جستجوی گوگل (از طریق Gemini) امتحان می‌کند و اگر کلید رایگان Gemini اجازه ندهد، از جستجوی اینترنتی OpenAI استفاده می‌کند (حدود ۱ سنت برای هر جستجو).
 
 **ChatGPT Voice در تماس صوتی:** تماس‌های صوتی حالا با GPT-Live انجام می‌شوند، همان مدل صدای ChatGPT Voice: دوستتان وقتی حرف می‌زند هم می‌شنود، «اوهوم» می‌گوید، می‌توانید هر لحظه وسط حرفش بپرید و سریع‌تر جواب می‌دهد. برای سؤال‌هایی مثل آب‌وهوا و اخبار، در حین صحبت در اینترنت جستجو می‌کند. یک بار کد key keeper را در Cloudflare به‌روز کنید (بخش «Update the key keeper» بالا). اگر فارسی‌اش را نپسندیدید، در تنظیمات گزینه‌ی «ChatGPT Voice on voice calls» را خاموش کنید.
+
+**کردی سورانی:** زبان کردی سورانی اضافه شد. از منوی زبان بالای صفحه «کوردی سۆرانی» را انتخاب کنید؛ دوستتان به کردی سورانیِ روزمره (با الفبای کردی) می‌نویسد و حرف می‌زند. در تماس‌ها ممکن است لهجه‌ی صدا به خوبیِ فارسی نباشد، چون سورانی برای این صداها زبان کم‌کاربردتری است.
 
 **خاموش شدن صفحه در تماس:** از نسخه‌ی ۱۳ اکتبر، صفحه‌ی گوشی در طول تماس صوتی و تصویری روشن می‌ماند، چون با خاموش شدن صفحه، گوشی میکروفون را قطع می‌کند. اگر خودتان گوشی را قفل کنید یا به برنامه‌ی دیگری بروید، وقتی برگردید تماس خودش دوباره وصل می‌شود و دوستتان از همان‌جا ادامه می‌دهد (اگر بیشتر از ۱۵ دقیقه بیرون بمانید، تماس تمام می‌شود).
 
