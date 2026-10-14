@@ -159,7 +159,7 @@ Friend Chat recognises the device it's opened on and dresses itself to match, so
 
 | Device | Chat | Voice call | Video call |
 |---|---|---|---|
-| iPhone, iPad, Mac | like Messages (blue bubbles) | like the Phone app (round buttons, red end button) | like FaceTime (controls at the top, your camera in the corner) |
+| iPhone, iPad, Mac | like Messages (blue bubbles) | like the Phone app (round buttons, red end button) | like FaceTime (frosted controls at the bottom, so your friend's face stays free; your camera in the corner) |
 | Android phone or tablet | like Google Messages | like the Google Phone app | like Google Meet (control bar at the bottom) |
 | Windows and other computers | modern, like ChatGPT: sidebar with friends and conversations | voice mode with a glowing orb | full-screen video with a floating control bar |
 
@@ -194,6 +194,7 @@ Good to know:
 
 - **Keep Friend Chat open with the screen on.** Phones don't let websites use the microphone while the screen is locked. Friend Chat keeps the screen awake while it listens; if the phone locks anyway or you switch apps, listening picks up again when you come back and the pause is marked in the transcript ("Paused 14:05–14:09").
 - No internet for a moment? What's said is kept (in memory) and written out when the connection is back.
+- Nothing written down? The message says why (no sound reached the microphone, no words recognised, or too short). **Settings → Voice and listening → Latest meeting** shows what happened step by step; **Copy log** and send it if you need help.
 - All meetings: **Meetings** in the menu or Settings — search them, open, share or delete. **Reset app** and **Delete all meetings** remove them.
 - Cost: about USD 0.003 per minute for writing it out (about 18 US cents per hour), from your OpenAI credit; summaries, translations and answers cost about 1 cent each.
 
@@ -274,6 +275,10 @@ If you used a different project name, put your address (ending in `/keys`) as th
 **نکات کلیدی و پاک کردن همه چیز:** نکات کلیدی هر گفتگو حالا با ChatGPT نوشته می‌شود (Gemini فقط اگر ChatGPT در دسترس نباشد). حافظه و دفترچه‌ی دوستان هم همین‌طور. با زدن «Reset app» در تنظیمات، اول پیامی باز می‌شود که دقیقاً می‌گوید چه چیزهایی پاک می‌شوند — همه‌ی گفتگوها، حافظه‌ها، تنظیمات، گزارش‌ها (لاگ‌ها) و کد دعوت — و می‌توانید اول از گفتگوها نسخه‌ی پشتیبان بگیرید. فقط با دکمه‌ی قرمز «Delete everything and reset» همه چیز پاک می‌شود.
 
 **حالت «گوش دادن» (Listen) — نوشتن متن جلسه:** گزینه‌ی چهارم، کنار چت، تماس صوتی و تماس تصویری: دکمه‌ی گوش در بالای صفحه. زبان جلسه را انتخاب کنید («Automatic» هر زبانی را می‌فهمد، حتی چند زبان در یک جلسه) و «Start listening» را بزنید. گوشی را نزدیک کسانی که حرف می‌زنند بگذارید؛ متن هر چند ثانیه با ساعتش روی صفحه می‌آید. صدا ضبط و ذخیره نمی‌شود — فقط متن روی گوشی شما می‌ماند. دکمه‌ی «Dark screen» صفحه را برای صرفه‌جویی در باتری سیاه می‌کند و گوش دادن ادامه پیدا می‌کند. گوشی اجازه نمی‌دهد سایت‌ها وقتی صفحه قفل است از میکروفون استفاده کنند؛ برای همین برنامه صفحه را روشن نگه می‌دارد، و اگر صفحه قفل شد یا به برنامه‌ی دیگری رفتید، با برگشتن ادامه می‌دهد و فاصله در متن علامت می‌خورد. با «Stop & save» جلسه ذخیره می‌شود و خلاصه، نکات کلیدی و تصمیم‌ها و کارها نوشته می‌شود. از منوی «Language» خلاصه و کل متن را به هر کدام از ۲۳ زبان ببینید، در بخش «Ask» هر وقت خواستید درباره‌ی جلسه سؤال کنید، و با «Share or save as PDF» متن کامل، خلاصه یا نکات کلیدی را (به زبانی که انتخاب می‌کنید) با ایمیل، پیامک، واتس‌اپ یا به صورت فایل PDF بفرستید. هزینه حدود ۱۸ سنت برای هر ساعت است.
+
+**تماس تصویری در آیفون:** دکمه‌های تماس حالا پایین صفحه هستند تا صورت دوستتان همیشه دیده شود (اسم و زمان تماس کوچک در گوشه‌ی بالا).
+
+**درست شدن «Listen» در آیفون:** اگر بعد از ضبط پیام «Nothing was written down» می‌آمد، به احتمال زیاد علتش این بود که آیفون سطح صدای میکروفون را برای برنامه درست گزارش نمی‌کرد و برنامه فکر می‌کرد کسی حرف نمی‌زند. حالا برنامه این حالت را تشخیص می‌دهد و همه‌ی صداها را برای نوشتن می‌فرستد. اگر باز هم چیزی نوشته نشد، پیام دلیلش را می‌گوید و در «Settings ← Voice and listening ← Latest meeting» گزارش کامل هست که می‌توانید با «Copy log» بفرستید.
 
 **صدای تماس تصویری:** از نسخه‌ی ۱۴ اکتبر (شب)، صدای تماس تصویری هم مثل تماس صوتی فقط از صدای تماسِ خودِ آیفون استفاده می‌کند تا خش‌خش «گرامافونی» از بین برود. اگر گوشی نتواند صدای ویدیوی زنده را صاف نگه دارد، تماس خودش با همان صدای صاف تماس صوتی ادامه پیدا می‌کند (با عکس دوستتان به جای ویدیوی زنده؛ دوستتان همچنان دوربین شما را می‌بیند). در تنظیمات، «Live video on video calls» را خاموش کنید تا همیشه همین صدای صاف استفاده شود.
 
