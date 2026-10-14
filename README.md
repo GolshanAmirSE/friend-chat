@@ -3,6 +3,8 @@
 A close friend you can **text, call or video call** — in 23 languages, including Persian (فارسی) and Kurdish Sorani (کوردی).
 Your friend chats naturally, remembers what you talked about, answers your questions and can check things on the internet for you.
 
+Created by **Amir Golshan**.
+
 **Open the app:** `https://<your-github-name>.github.io/<repository-name>/`
 
 ---
@@ -156,9 +158,9 @@ Friend Chat recognises the device it's opened on and dresses itself to match, so
 | Windows and other computers | classic Friend Chat | classic Friend Chat | classic Friend Chat |
 
 - Call straight from the chat with the phone or camera icon at the top; hanging up takes you back to the chat. During a call, **messages** (iPhone) or **Chat** (Android) opens the conversation without ending the call.
-- Tap the friend's name at the top for Settings. The language under the name opens the language menu.
+- The **gear** at the top left opens the setup: choose your friend, language, personality and voice. Tap the friend's name at the top for Settings; the language under the name opens the language menu.
 - **Settings → Look** changes it: *Automatic* (matches the device), *iPhone style*, *Android style* or *Classic Friend Chat*. The choice is remembered on that device.
-- Light and dark mode follow the phone's own setting.
+- Light and dark mode follow the phone's own setting, from the very first moment the app opens (no flash of the old green colours).
 
 ## Football blocking in Spain: the backup route
 
@@ -230,6 +232,6 @@ If you used a different project name, put your address (ending in `/keys`) as th
 
 **صدای خش‌دار یا نویزدار در تماس:** از نسخه‌ی ۱۳ اکتبر، تماس‌ها در آیفون فقط از صدای تماسِ خودِ گوشی استفاده می‌کنند و میکسر صدای برنامه در طول تماس خاموش می‌ماند، چون روشن بودنش می‌تواند صدای دوستتان را مثل گرامافون قدیمی خش‌دار کند. اگر با ایرپاد یا هدفون بلوتوثی صحبت می‌کنید، آیفون در حالت تماس کیفیت صدا را پایین‌تر می‌آورد؛ برای مقایسه با بلندگوی گوشی امتحان کنید. بعد از هر تماس، در تنظیمات بخش «Latest call» گزارش صدا را نشان می‌دهد؛ اگر عدد «patched» بیشتر از حدود ۲٪ باشد، مشکل از اینترنت (وای‌فای یا موبایل) است.
 
-**ظاهر مثل برنامه‌های خود گوشی:** از نسخه‌ی ۱۴ اکتبر، برنامه تشخیص می‌دهد روی چه دستگاهی باز شده است. در آیفون، چت شبیه Messages، تماس صوتی شبیه برنامه‌ی Phone و تماس تصویری شبیه FaceTime است؛ در اندروید شبیه Google Messages، برنامه‌ی Phone و Meet. حالت روشن و تاریک هم از تنظیمات گوشی پیروی می‌کند. از آیکون تلفن یا دوربین بالای چت مستقیم تماس بگیرید؛ با قطع تماس به چت برمی‌گردید. در تنظیمات، بخش «Look» می‌توانید ظاهر را عوض کنید (Automatic، iPhone، Android یا Classic). دکمه‌ی «Hear» برای شنیدن صدای هر دوست هنگام انتخاب هم در آیفون درست شد.
+**ظاهر مثل برنامه‌های خود گوشی:** از نسخه‌ی ۱۴ اکتبر، برنامه تشخیص می‌دهد روی چه دستگاهی باز شده است. در آیفون، چت شبیه Messages، تماس صوتی شبیه برنامه‌ی Phone و تماس تصویری شبیه FaceTime است؛ در اندروید شبیه Google Messages، برنامه‌ی Phone و Meet. حالت روشن و تاریک هم از تنظیمات گوشی پیروی می‌کند. از آیکون تلفن یا دوربین بالای چت مستقیم تماس بگیرید؛ با قطع تماس به چت برمی‌گردید. در تنظیمات، بخش «Look» می‌توانید ظاهر را عوض کنید (Automatic، iPhone، Android یا Classic). دکمه‌ی چرخ‌دنده (⚙️) بالا سمت چپ، صفحه‌ی راه‌اندازی را باز می‌کند (انتخاب دوست، زبان، شخصیت و صدا). از نسخه‌ی ۱۴ اکتبر (بعدازظهر)، برنامه از همان لحظه‌ی باز شدن با ظاهر گوشی شما شروع می‌شود و دیگر رنگ سبز قدیمی برای یک لحظه دیده نمی‌شود. دکمه‌ی «Hear» برای شنیدن صدای هر دوست هنگام انتخاب هم در آیفون درست شد.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
