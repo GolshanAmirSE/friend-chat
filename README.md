@@ -18,9 +18,11 @@ Created by **Amir Golshan**.
 - **Video calls on OpenAI's live voice model** (`gpt-realtime-2.1`) with live video friends (ChatGPT Voice doesn't take camera pictures, so video calls keep this model).
 - **Eight friends who look and act like real people:** Celine, Nia, Lori, Meg, Malik, Rowan, Harry and Max appear as real-time, full-body video on video calls — they talk, smile, move and react while you talk. Four of them were filmed from real people. Each has their own voice (a different OpenAI natural voice for each friend) and their own way of speaking, so each sounds like themselves in text, voice and video calls.
 - **Choosing a friend:** each one has a real photo, a short description and a Hear button to listen to their voice first. You also choose the conversation language and the friend's personality.
-- **Calls without text on screen:** the conversation is still saved in the chat. The Captions button shows it during a call if you want.
+- **Calls without text on screen:** everything said on calls is still saved in the chat (marked "Voice call with …" or "Video call with …"). The Captions button shows it during a call if you want.
 - **Reset app** (in Settings) deletes everything on the device and starts again like the first time; you'll need the invite code again.
-- **Memory:** your friend remembers what you shared and picks up where you left off.
+- **One conversation, one memory:** all your friends share one conversation. Switching friends doesn't start an empty chat: texts, voice calls and video calls all stay in the chat until you delete them, and every friend remembers what you shared and picks up where you left off.
+- **"Do you remember…?":** ask "what did we talk about last week?" or "do you remember what I said about my trip?" — in chat or on a call — and your friend looks back through your conversations and tells you what was said and when.
+- **Search and share:** search everything you talked about, open any conversation, make its key points (in any of the 23 languages) and send them by email, text message, WhatsApp or any app on your phone.
 - **Helpful:** answers questions, gives practical advice and looks up current things (news, weather, prices, opening hours) on the internet. It uses Google Search through Gemini when your Gemini key includes it (Gemini's free plan doesn't), and otherwise OpenAI's web search (about 1 US cent per search, from your OpenAI credit).
 - **Sees your camera:** on a video call, hold something up and ask "what is this?". While you talk, your friend gets a short description of what your camera shows (OpenAI looks at the picture), and when you've just shown something new they wait a moment for it before answering, so they see what you show; "… can see this" appears on your camera preview. Switch between the front and back camera with the camera-switch button.
 - **iPhone on silent:** the friend's voice still plays when the iPhone is on silent (iOS 17 or later), like a music app or a phone call.
@@ -95,7 +97,7 @@ Good to know:
 
 ## Privacy
 
-- Keys, conversations and memories are stored **only in your own browser** on your device. Nothing is stored on GitHub or on any server of ours.
+- Keys, conversations and memories are stored **only in your own browser** on your device (conversations in the browser's database). Nothing is stored on GitHub or on any server of ours. Key points you share go only where you send them.
 - Messages go only to the AI service you choose.
 - **Camera on video calls:** the video itself stays on your device. While you talk on a video call, your friend gets a photo from your camera (only when the picture changed); OpenAI (or Gemini) turns the photo into a short description for your friend. Turn the camera off with the camera button at any time.
 - With the key keeper, your keys stay in your Cloudflare account and are never sent to visitors. Without it, **don't share your keys** — each person adds their own.
@@ -158,9 +160,20 @@ Friend Chat recognises the device it's opened on and dresses itself to match, so
 | Windows and other computers | classic Friend Chat | classic Friend Chat | classic Friend Chat |
 
 - Call straight from the chat with the phone or camera icon at the top; hanging up takes you back to the chat. During a call, **messages** (iPhone) or **Chat** (Android) opens the conversation without ending the call.
-- The **gear** at the top left opens the setup: choose your friend, language, personality and voice. Tap the friend's name at the top for Settings; the language under the name opens the language menu.
+- The **gear** at the top left opens **Settings** (change friend, run the setup again, conversations and memory, look, voice, AI connection, reset). The **magnifying glass** searches your conversations. Tap the friend's name at the top for all your conversations; the language under the name opens the language menu.
 - **Settings → Look** changes it: *Automatic* (matches the device), *iPhone style*, *Android style* or *Classic Friend Chat*. The choice is remembered on that device.
 - Light and dark mode follow the phone's own setting, from the very first moment the app opens (no flash of the old green colours).
+
+## Conversations, memory and sharing
+
+- **One conversation with all friends.** Every message — typed, or said on a voice or video call — stays in the chat, whichever friend you talk to. Messages from another friend show that friend's name. Long chats show the latest part; **Show earlier messages** at the top brings back older ones.
+- **Your friends remember.** They keep notes about you and a short diary of each conversation (what you talked about and when), shared by all friends. Ask "do you remember…?" any time, in chat or on a call; they look back through the chat history and answer with the day and what was said.
+- **Search:** the magnifying glass at the top (or Settings → Conversations and memory → Search conversations). It finds words in any language, also Persian with or without the half-space (‌), and Arabic or Persian letter forms.
+- **Key points and sharing:** open a conversation from the list or a search result, tap **Key points**, choose the language, edit if you like, then **Share…** (your phone's own share menu: Messages, Mail, WhatsApp, Telegram…), **Email**, **Message**, **WhatsApp** or **Copy**. **Share conversation** sends the whole conversation instead.
+- **Save a copy:** Settings → Conversations and memory → Save a copy keeps all conversations as one text file (on iPhone: Save to Files, or send it to yourself).
+- **Delete:** the bin icon in a conversation deletes just that one. **Clear memory** makes your friends forget (the conversations stay in the chat). **Delete all conversations** deletes conversations and memory. **Reset app** also deletes settings and the invite code.
+- **Keep them safe on iPhone:** Safari can remove a website's saved data when you haven't opened that site for about a week of using Safari. Apps opened from the **Home Screen icon** aren't affected, so use the icon, and **Save a copy** now and then for your own backup.
+- Conversations from earlier versions (kept separately per friend) are joined into the one conversation automatically the first time this version opens.
 
 ## Football blocking in Spain: the backup route
 
@@ -232,6 +245,8 @@ If you used a different project name, put your address (ending in `/keys`) as th
 
 **صدای خش‌دار یا نویزدار در تماس:** از نسخه‌ی ۱۳ اکتبر، تماس‌ها در آیفون فقط از صدای تماسِ خودِ گوشی استفاده می‌کنند و میکسر صدای برنامه در طول تماس خاموش می‌ماند، چون روشن بودنش می‌تواند صدای دوستتان را مثل گرامافون قدیمی خش‌دار کند. اگر با ایرپاد یا هدفون بلوتوثی صحبت می‌کنید، آیفون در حالت تماس کیفیت صدا را پایین‌تر می‌آورد؛ برای مقایسه با بلندگوی گوشی امتحان کنید. بعد از هر تماس، در تنظیمات بخش «Latest call» گزارش صدا را نشان می‌دهد؛ اگر عدد «patched» بیشتر از حدود ۲٪ باشد، مشکل از اینترنت (وای‌فای یا موبایل) است.
 
-**ظاهر مثل برنامه‌های خود گوشی:** از نسخه‌ی ۱۴ اکتبر، برنامه تشخیص می‌دهد روی چه دستگاهی باز شده است. در آیفون، چت شبیه Messages، تماس صوتی شبیه برنامه‌ی Phone و تماس تصویری شبیه FaceTime است؛ در اندروید شبیه Google Messages، برنامه‌ی Phone و Meet. حالت روشن و تاریک هم از تنظیمات گوشی پیروی می‌کند. از آیکون تلفن یا دوربین بالای چت مستقیم تماس بگیرید؛ با قطع تماس به چت برمی‌گردید. در تنظیمات، بخش «Look» می‌توانید ظاهر را عوض کنید (Automatic، iPhone، Android یا Classic). دکمه‌ی چرخ‌دنده (⚙️) بالا سمت چپ، صفحه‌ی راه‌اندازی را باز می‌کند (انتخاب دوست، زبان، شخصیت و صدا). از نسخه‌ی ۱۴ اکتبر (بعدازظهر)، برنامه از همان لحظه‌ی باز شدن با ظاهر گوشی شما شروع می‌شود و دیگر رنگ سبز قدیمی برای یک لحظه دیده نمی‌شود. دکمه‌ی «Hear» برای شنیدن صدای هر دوست هنگام انتخاب هم در آیفون درست شد.
+**ظاهر مثل برنامه‌های خود گوشی:** از نسخه‌ی ۱۴ اکتبر، برنامه تشخیص می‌دهد روی چه دستگاهی باز شده است. در آیفون، چت شبیه Messages، تماس صوتی شبیه برنامه‌ی Phone و تماس تصویری شبیه FaceTime است؛ در اندروید شبیه Google Messages، برنامه‌ی Phone و Meet. حالت روشن و تاریک هم از تنظیمات گوشی پیروی می‌کند. از آیکون تلفن یا دوربین بالای چت مستقیم تماس بگیرید؛ با قطع تماس به چت برمی‌گردید. در تنظیمات، بخش «Look» می‌توانید ظاهر را عوض کنید (Automatic، iPhone، Android یا Classic). دکمه‌ی چرخ‌دنده (⚙️) بالا سمت چپ، «تنظیمات» را باز می‌کند (تغییر دوست، راه‌اندازی دوباره، گفتگوها و حافظه، ظاهر، صدا و …). از نسخه‌ی ۱۴ اکتبر (بعدازظهر)، برنامه از همان لحظه‌ی باز شدن با ظاهر گوشی شما شروع می‌شود و دیگر رنگ سبز قدیمی برای یک لحظه دیده نمی‌شود. دکمه‌ی «Hear» برای شنیدن صدای هر دوست هنگام انتخاب هم در آیفون درست شد.
+
+**یک گفتگو و یک حافظه برای همه‌ی دوستان:** از نسخه‌ی ۱۴ اکتبر (عصر)، همه‌ی دوستان یک گفتگوی مشترک دارند: با عوض کردن دوست، چت خالی نمی‌شود و همه‌ی پیام‌ها — چه تایپی، چه در تماس صوتی یا تصویری — تا وقتی خودتان پاک نکنید در چت می‌مانند. همه‌ی دوستان هر چه گفته‌اید را به خاطر دارند. بپرسید «یادته هفته‌ی پیش درباره‌ی چی حرف زدیم؟» (در چت یا در تماس) تا دوستتان در گفتگوهای قبلی بگردد و بگوید چه گفتید و کی. با ذره‌بین بالای صفحه در همه‌ی گفتگوها جستجو کنید، یک گفتگو را باز کنید، «Key points» را بزنید تا نکات کلیدی‌اش (به هر زبانی که بخواهید) نوشته شود و آن را با ایمیل، پیامک، واتس‌اپ یا هر برنامه‌ی دیگری بفرستید. در «تنظیمات ← Conversations and memory» می‌توانید از همه‌ی گفتگوها نسخه‌ی پشتیبان بگیرید (Save a copy)، حافظه‌ی دوستان را پاک کنید (Clear memory، گفتگوها می‌مانند) یا همه‌ی گفتگوها را حذف کنید.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
