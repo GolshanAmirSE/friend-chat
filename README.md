@@ -10,12 +10,13 @@ Your friend chats naturally, remembers what you talked about, answers your quest
 ## What it does
 
 - **Text chat, voice calls and video calls** with a friend who talks like a real person, not an assistant.
+- **Looks like your phone's own apps:** on iPhone the chat looks like Messages, voice calls like the Phone app and video calls like FaceTime; on Android like Google Messages, the Phone app and Meet. On a computer it keeps the classic Friend Chat design. It follows the phone's light or dark mode.
 - **The latest ChatGPT model for chat:** replies come from `chat-latest` (the newest model used in ChatGPT) and appear word by word as they're written; your friend searches the web by itself when a question needs it (about 1 US cent per message, plus about 1 cent per web search, from your OpenAI credit). If the key keeper doesn't allow it yet, the app uses `gpt-4.1-mini` instead.
 - **Voice calls with ChatGPT Voice:** voice calls use OpenAI's **GPT-Live** (`gpt-live-1`), the same voice model as ChatGPT Voice. Your friend listens while talking, says "mm-hmm", lets you cut in at any moment and answers faster. When a question needs the internet or more thought (weather, news, prices, advice), they hand it to a helper model (`gpt-6-luna` with web search) and keep talking while it works. About USD 0.05 per minute of call, plus the helper's searches. Settings → **ChatGPT Voice on voice calls** switches back to the earlier live voice; if ChatGPT Voice can't start, the call uses the earlier voice by itself.
 - **Video calls on OpenAI's live voice model** (`gpt-realtime-2.1`) with live video friends (ChatGPT Voice doesn't take camera pictures, so video calls keep this model).
 - **Eight friends who look and act like real people:** Celine, Nia, Lori, Meg, Malik, Rowan, Harry and Max appear as real-time, full-body video on video calls — they talk, smile, move and react while you talk. Four of them were filmed from real people. Each has their own voice (a different OpenAI natural voice for each friend) and their own way of speaking, so each sounds like themselves in text, voice and video calls.
 - **Choosing a friend:** each one has a real photo, a short description and a Hear button to listen to their voice first. You also choose the conversation language and the friend's personality.
-- **Calls without text on screen:** the conversation is still saved in the chat. The Captions button (on larger screens) shows it during a call if you want.
+- **Calls without text on screen:** the conversation is still saved in the chat. The Captions button shows it during a call if you want.
 - **Reset app** (in Settings) deletes everything on the device and starts again like the first time; you'll need the invite code again.
 - **Memory:** your friend remembers what you shared and picks up where you left off.
 - **Helpful:** answers questions, gives practical advice and looks up current things (news, weather, prices, opening hours) on the internet. It uses Google Search through Gemini when your Gemini key includes it (Gemini's free plan doesn't), and otherwise OpenAI's web search (about 1 US cent per search, from your OpenAI credit).
@@ -144,6 +145,21 @@ Choose **کوردی سۆرانی · Kurdish (Sorani)** in the language menu at t
 - Calls speak Sorani with the friend's natural voice. Sorani is a less common language for these voices, so the accent can sound less native than in Persian.
 - Phones and browsers have no Kurdish speech recognition or Kurdish voices of their own, so the app uses AI transcription and AI voices for Sorani.
 
+## Looks like your phone's own apps
+
+Friend Chat recognises the device it's opened on and dresses itself to match, so everything feels familiar:
+
+| Device | Chat | Voice call | Video call |
+|---|---|---|---|
+| iPhone, iPad, Mac | like Messages (blue bubbles) | like the Phone app (round buttons, red end button) | like FaceTime (controls at the top, your camera in the corner) |
+| Android phone or tablet | like Google Messages | like the Google Phone app | like Google Meet (control bar at the bottom) |
+| Windows and other computers | classic Friend Chat | classic Friend Chat | classic Friend Chat |
+
+- Call straight from the chat with the phone or camera icon at the top; hanging up takes you back to the chat. During a call, **messages** (iPhone) or **Chat** (Android) opens the conversation without ending the call.
+- Tap the friend's name at the top for Settings. The language under the name opens the language menu.
+- **Settings → Look** changes it: *Automatic* (matches the device), *iPhone style*, *Android style* or *Classic Friend Chat*. The choice is remembered on that device.
+- Light and dark mode follow the phone's own setting.
+
 ## Football blocking in Spain: the backup route
 
 During football matches (and some other sports), the big Spanish internet providers block many Cloudflare addresses. The key keeper runs on Cloudflare, so in Spain the app could stop answering during a match. The **backup route** fixes that: a small relay on Netlify, a different network, that passes the app's requests on to your key keeper. It holds **no keys** and needs no settings.
@@ -213,5 +229,7 @@ If you used a different project name, put your address (ending in `/keys`) as th
 **اجازه‌ی میکروفون و دوربین فقط یک بار:** فقط خود مرورگر می‌تواند این اجازه را به خاطر بسپارد. در Safari آیفون: دکمه‌ی سمت چپ نوار آدرس (در آیفون‌های قدیمی‌تر «aA») ← اگر «⋯» دیدید آن را بزنید ← Website Settings ← میکروفون و دوربین را روی Allow بگذارید. اگر برنامه را از آیکون صفحه‌ی اصلی (Home Screen) باز می‌کنید، آیفون این اجازه را نگه نمی‌دارد؛ یا برنامه را در Safari باز کنید، یا در تنظیمات آیفون: Apps ← Safari ← Microphone و Camera را روی Allow بگذارید (این برای همه‌ی سایت‌ها اعمال می‌شود). راهنمای کامل در تنظیمات برنامه، بخش «Stop the permission questions» است.
 
 **صدای خش‌دار یا نویزدار در تماس:** از نسخه‌ی ۱۳ اکتبر، تماس‌ها در آیفون فقط از صدای تماسِ خودِ گوشی استفاده می‌کنند و میکسر صدای برنامه در طول تماس خاموش می‌ماند، چون روشن بودنش می‌تواند صدای دوستتان را مثل گرامافون قدیمی خش‌دار کند. اگر با ایرپاد یا هدفون بلوتوثی صحبت می‌کنید، آیفون در حالت تماس کیفیت صدا را پایین‌تر می‌آورد؛ برای مقایسه با بلندگوی گوشی امتحان کنید. بعد از هر تماس، در تنظیمات بخش «Latest call» گزارش صدا را نشان می‌دهد؛ اگر عدد «patched» بیشتر از حدود ۲٪ باشد، مشکل از اینترنت (وای‌فای یا موبایل) است.
+
+**ظاهر مثل برنامه‌های خود گوشی:** از نسخه‌ی ۱۴ اکتبر، برنامه تشخیص می‌دهد روی چه دستگاهی باز شده است. در آیفون، چت شبیه Messages، تماس صوتی شبیه برنامه‌ی Phone و تماس تصویری شبیه FaceTime است؛ در اندروید شبیه Google Messages، برنامه‌ی Phone و Meet. حالت روشن و تاریک هم از تنظیمات گوشی پیروی می‌کند. از آیکون تلفن یا دوربین بالای چت مستقیم تماس بگیرید؛ با قطع تماس به چت برمی‌گردید. در تنظیمات، بخش «Look» می‌توانید ظاهر را عوض کنید (Automatic، iPhone، Android یا Classic). دکمه‌ی «Hear» برای شنیدن صدای هر دوست هنگام انتخاب هم در آیفون درست شد.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
