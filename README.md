@@ -2,6 +2,7 @@
 
 A close friend you can **text, call or video call** — in 23 languages, including Persian (فارسی) and Kurdish Sorani (کوردی).
 Your friend chats naturally, remembers what you talked about, answers your questions and can check things on the internet for you.
+And with **Listen**, Friend Chat writes down a meeting, class or talk in any language, then gives you the summary and key points in the language you choose.
 
 Created by **Amir Golshan**.
 
@@ -12,6 +13,8 @@ Created by **Amir Golshan**.
 ## What it does
 
 - **Text chat, voice calls and video calls** with a friend who talks like a real person, not an assistant.
+- **Listen (the 4th way):** the ear button at the top writes down a meeting, class or talk — in any language, even several in the same meeting — while you just listen. Only the text is kept, never the sound. Afterwards: a summary, key points and tasks in any of the 23 languages, a translated transcript, your own questions about the meeting, and sharing by email, message, WhatsApp, the share menu or as a PDF. See **Listen: write down a meeting** below.
+- **Dictate and read aloud in the chat:** the microphone in the message box writes down what you say (ChatGPT's transcription). **Read aloud** reads what's in the message box in your friend's voice — or, when the box is empty, your friend's last reply. Tap it again to stop. (To have every reply read aloud automatically: Settings → Voice and listening → Read replies aloud.)
 - **Looks like your phone's own apps:** on iPhone the chat looks like Messages, voice calls like the Phone app and video calls like FaceTime; on Android like Google Messages, the Phone app and Meet. On a computer it has a **modern look like ChatGPT and other AI apps**: a sidebar with your friends and conversations, a clean chat, and a voice mode with a glowing orb. It follows light or dark mode.
 - **The latest ChatGPT model for chat:** replies come from `chat-latest` (the newest model used in ChatGPT) and appear word by word as they're written; your friend searches the web by itself when a question needs it (about 1 US cent per message, plus about 1 cent per web search, from your OpenAI credit). If the key keeper doesn't allow it yet, the app uses `gpt-4.1-mini` instead.
 - **Voice calls with ChatGPT Voice:** voice calls use OpenAI's **GPT-Live** (`gpt-live-1`), the same voice model as ChatGPT Voice. Your friend listens while talking, says "mm-hmm", lets you cut in at any moment and answers faster. When a question needs the internet or more thought (weather, news, prices, advice), they hand it to a helper model (`gpt-6-luna` with web search) and keep talking while it works. About USD 0.05 per minute of call, plus the helper's searches. Settings → **ChatGPT Voice on voice calls** switches back to the earlier live voice; if ChatGPT Voice can't start, the call uses the earlier voice by itself.
@@ -100,6 +103,7 @@ Good to know:
 - Keys, conversations and memories are stored **only in your own browser** on your device (conversations in the browser's database). Nothing is stored on GitHub or on any server of ours. Key points you share go only where you send them.
 - Messages go only to the AI service you choose.
 - **Camera on video calls:** the video itself stays on your device. While you talk on a video call, your friend gets a photo from your camera (only when the picture changed); OpenAI (or Gemini) turns the photo into a short description for your friend. Turn the camera off with the camera button at any time.
+- **Listen (meetings):** the sound is sent in short pieces to OpenAI to be written out and is not kept anywhere — not on your phone, not by Friend Chat. Only the text is saved, on your device. Let the people in the meeting know you're writing it down.
 - With the key keeper, your keys stay in your Cloudflare account and are never sent to visitors. Without it, **don't share your keys** — each person adds their own.
 - The friends are AI: Microsoft's digital people, four of them filmed from real actors. Their photos are Microsoft's official pictures (Microsoft Learn, CC BY 4.0), loaded from Microsoft's documentation. If you sincerely ask, your friend says honestly that they are an AI friend.
 - AI can make mistakes. Check anything important.
@@ -137,7 +141,7 @@ Video calls now ask for the microphone and camera together, so there's one quest
 
 ## Crackling or noisy sound on calls?
 
-1. Make sure the newest version runs (the version is at the bottom of **Settings**). Since 13 October, calls on iPhone use only the phone's own call audio: the app's own sound mixer stays off during calls, because a running mixer can make the friend's voice crackle like an old record.
+1. Make sure the newest version runs (the version is at the bottom of **Settings**). Since 13 October, calls on iPhone use only the phone's own call audio: the app's own sound mixer stays off during calls, because a running mixer can make the friend's voice crackle like an old record. Since 14 October (evening) **video calls** work the same way: the live video's sound uses the phone's own call audio too, and if a phone can't keep it clear, the video call carries on by itself with the same clear voice as voice calls (your friend's photo instead of the live video; your friend still sees your camera). To always use that clear voice on video calls, turn off **Settings → Voice and listening → Live video on video calls**.
 2. **AirPods or other Bluetooth earphones:** while the microphone is on, iPhones switch them to "phone call" sound, which is thinner than music. Try the phone's loudspeaker or wired earphones to compare.
 3. After a call, **Settings → Voice and listening → Latest call** shows a sound report. If *patched* is above about 2%, sound arrived late or got lost on the way: a stronger Wi-Fi or mobile signal fixes that. If it still crackles, select **Copy log** and send it.
 
@@ -174,6 +178,24 @@ Friend Chat recognises the device it's opened on and dresses itself to match, so
 - **Delete:** the bin icon in a conversation deletes just that one. **Clear memory** makes your friends forget (the conversations stay in the chat). **Delete all conversations** deletes conversations and memory. **Reset app** also deletes settings, logs and the invite code (it lists everything before deleting).
 - **Keep them safe on iPhone:** Safari can remove a website's saved data when you haven't opened that site for about a week of using Safari. Apps opened from the **Home Screen icon** aren't affected, so use the icon, and **Save a copy** now and then for your own backup.
 - Conversations from earlier versions (kept separately per friend) are joined into the one conversation automatically the first time this version opens.
+
+## Listen: write down a meeting
+
+The **ear button** at the top (next to the call buttons), the menu's **Listen: write down a meeting**, or **Settings → Meetings (Listen)**.
+
+1. Choose the language spoken — **Automatic** understands any language, even several in the same meeting — and tap **Start listening**.
+2. Put the phone near the people talking. What's said appears on the screen every few seconds, with the time. **Pause** and **Resume** when you like; **Dark screen** turns the screen black to save battery while it keeps listening (tap to show it again).
+3. **Stop & save.** Friend Chat writes the last words and opens the meeting with its **Summary**: a short summary, the key points, and the decisions and tasks (who does what).
+4. **Language** (at the top of the meeting): show the summary and the whole transcript in any of the 23 languages.
+5. **Ask:** ask anything about the meeting, any time later, in any language — "What did we decide about the budget?", "Who has to send what?" — and get the answer from the transcript, with the time it was said.
+6. **Share or save as PDF:** choose what (Transcript, Summary, Key points or Everything) and the language in the same menu, edit if you like, then **Share…**, **Email**, **Message**, **WhatsApp**, **Copy** or **PDF** (on a phone the PDF opens the share menu; on a computer it's saved to Downloads). Persian, Kurdish and Arabic PDFs are written right to left.
+
+Good to know:
+
+- **Keep Friend Chat open with the screen on.** Phones don't let websites use the microphone while the screen is locked. Friend Chat keeps the screen awake while it listens; if the phone locks anyway or you switch apps, listening picks up again when you come back and the pause is marked in the transcript ("Paused 14:05–14:09").
+- No internet for a moment? What's said is kept (in memory) and written out when the connection is back.
+- All meetings: **Meetings** in the menu or Settings — search them, open, share or delete. **Reset app** and **Delete all meetings** remove them.
+- Cost: about USD 0.003 per minute for writing it out (about 18 US cents per hour), from your OpenAI credit; summaries, translations and answers cost about 1 cent each.
 
 ## Football blocking in Spain: the backup route
 
@@ -250,5 +272,11 @@ If you used a different project name, put your address (ending in `/keys`) as th
 **یک گفتگو و یک حافظه برای همه‌ی دوستان:** از نسخه‌ی ۱۴ اکتبر (عصر)، همه‌ی دوستان یک گفتگوی مشترک دارند: با عوض کردن دوست، چت خالی نمی‌شود و همه‌ی پیام‌ها — چه تایپی، چه در تماس صوتی یا تصویری — تا وقتی خودتان پاک نکنید در چت می‌مانند. همه‌ی دوستان هر چه گفته‌اید را به خاطر دارند. بپرسید «یادته هفته‌ی پیش درباره‌ی چی حرف زدیم؟» (در چت یا در تماس) تا دوستتان در گفتگوهای قبلی بگردد و بگوید چه گفتید و کی. با ذره‌بین بالای صفحه در همه‌ی گفتگوها جستجو کنید، یک گفتگو را باز کنید، «Key points» را بزنید تا نکات کلیدی‌اش (به هر زبانی که بخواهید) نوشته شود و آن را با ایمیل، پیامک، واتس‌اپ یا هر برنامه‌ی دیگری بفرستید. در «تنظیمات ← Conversations and memory» می‌توانید از همه‌ی گفتگوها نسخه‌ی پشتیبان بگیرید (Save a copy)، حافظه‌ی دوستان را پاک کنید (Clear memory، گفتگوها می‌مانند) یا همه‌ی گفتگوها را حذف کنید.
 
 **نکات کلیدی و پاک کردن همه چیز:** نکات کلیدی هر گفتگو حالا با ChatGPT نوشته می‌شود (Gemini فقط اگر ChatGPT در دسترس نباشد). حافظه و دفترچه‌ی دوستان هم همین‌طور. با زدن «Reset app» در تنظیمات، اول پیامی باز می‌شود که دقیقاً می‌گوید چه چیزهایی پاک می‌شوند — همه‌ی گفتگوها، حافظه‌ها، تنظیمات، گزارش‌ها (لاگ‌ها) و کد دعوت — و می‌توانید اول از گفتگوها نسخه‌ی پشتیبان بگیرید. فقط با دکمه‌ی قرمز «Delete everything and reset» همه چیز پاک می‌شود.
+
+**حالت «گوش دادن» (Listen) — نوشتن متن جلسه:** گزینه‌ی چهارم، کنار چت، تماس صوتی و تماس تصویری: دکمه‌ی گوش در بالای صفحه. زبان جلسه را انتخاب کنید («Automatic» هر زبانی را می‌فهمد، حتی چند زبان در یک جلسه) و «Start listening» را بزنید. گوشی را نزدیک کسانی که حرف می‌زنند بگذارید؛ متن هر چند ثانیه با ساعتش روی صفحه می‌آید. صدا ضبط و ذخیره نمی‌شود — فقط متن روی گوشی شما می‌ماند. دکمه‌ی «Dark screen» صفحه را برای صرفه‌جویی در باتری سیاه می‌کند و گوش دادن ادامه پیدا می‌کند. گوشی اجازه نمی‌دهد سایت‌ها وقتی صفحه قفل است از میکروفون استفاده کنند؛ برای همین برنامه صفحه را روشن نگه می‌دارد، و اگر صفحه قفل شد یا به برنامه‌ی دیگری رفتید، با برگشتن ادامه می‌دهد و فاصله در متن علامت می‌خورد. با «Stop & save» جلسه ذخیره می‌شود و خلاصه، نکات کلیدی و تصمیم‌ها و کارها نوشته می‌شود. از منوی «Language» خلاصه و کل متن را به هر کدام از ۲۳ زبان ببینید، در بخش «Ask» هر وقت خواستید درباره‌ی جلسه سؤال کنید، و با «Share or save as PDF» متن کامل، خلاصه یا نکات کلیدی را (به زبانی که انتخاب می‌کنید) با ایمیل، پیامک، واتس‌اپ یا به صورت فایل PDF بفرستید. هزینه حدود ۱۸ سنت برای هر ساعت است.
+
+**صدای تماس تصویری:** از نسخه‌ی ۱۴ اکتبر (شب)، صدای تماس تصویری هم مثل تماس صوتی فقط از صدای تماسِ خودِ آیفون استفاده می‌کند تا خش‌خش «گرامافونی» از بین برود. اگر گوشی نتواند صدای ویدیوی زنده را صاف نگه دارد، تماس خودش با همان صدای صاف تماس صوتی ادامه پیدا می‌کند (با عکس دوستتان به جای ویدیوی زنده؛ دوستتان همچنان دوربین شما را می‌بیند). در تنظیمات، «Live video on video calls» را خاموش کنید تا همیشه همین صدای صاف استفاده شود.
+
+**میکروفون و «Read aloud» در چت:** میکروفونِ جعبه‌ی پیام دوباره کار می‌کند (حرف شما با ChatGPT نوشته می‌شود؛ پیام اشتباهِ «Voice input needs an internet connection» دیگر نمی‌آید). دکمه‌ی «Read aloud» متنی را که در جعبه‌ی پیام نوشته‌اید یا با میکروفون گفته‌اید با صدای دوستتان می‌خواند؛ اگر جعبه خالی باشد، آخرین جواب دوستتان را می‌خواند. برای قطع، دوباره بزنید.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
