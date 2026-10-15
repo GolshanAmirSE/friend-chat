@@ -3,6 +3,7 @@
 A close friend you can **text, call or video call** — in 23 languages, including Persian (فارسی) and Kurdish Sorani (کوردی).
 Your friend chats naturally, remembers what you talked about, answers your questions and can check things on the internet for you.
 And with **Listen**, Friend Chat writes down a meeting, class or talk in any language, then gives you the summary and key points in the language you choose.
+The **Translator** translates what you type or say, in any language, like a real interpreter: only the translation — typed or spoken in your friend's voice.
 
 Created by **Amir Golshan**.
 
@@ -13,6 +14,7 @@ Created by **Amir Golshan**.
 ## What it does
 
 - **Text chat, voice calls and video calls** with a friend who talks like a real person, not an assistant.
+- **Translator (the 5th way):** the 文A button at the top, between Listen and the call buttons. Choose the language to translate into, then **Text** or **Voice**: whatever is typed or said, in any language (recognised by itself), comes out as only its translation — the way a native speaker would say it, sayings and expressions included. See **Translator** below.
 - **Listen (the 4th way):** the ear button at the top writes down a meeting, class or talk — in any language, even several in the same meeting — while you just listen. Only the text is kept, never the sound. Afterwards: a summary, key points and tasks in any of the 23 languages, a translated transcript, your own questions about the meeting, and sharing by email, message, WhatsApp, the share menu or as a PDF. See **Listen: write down a meeting** below.
 - **Photos and files in the chat:** tap **+** next to the message box to add photos, Word, Excel, PowerPoint, PDF or text files, and ask anything about them — a summary, the key points, what a table shows, what's in a photo. Ask for a **PowerPoint presentation** made from a file or a topic, or ask to **change a photo** (another background, other clothes, add or remove something) and get a new picture that keeps the faces as close to the original as possible. See **Photos, files, presentations and pictures** below.
 - **Dictate and read aloud in the chat:** the microphone in the message box writes down what you say (ChatGPT's transcription). Like a call, it switches on when you tap it and off by itself as soon as you stop talking (about a second of quiet; the iPhone's microphone light goes out), then your words appear in the box to check, edit or send. Tap it again to add more, or tap it while you talk to stop early. It's always there next to Send — also when you've added a photo or file, so you can say your question instead of typing it. Tap **Send** while you're still talking and the message goes as soon as your words are written out. **Read aloud** reads what's in the message box in your friend's voice — or, when the box is empty, your friend's last reply. Tap it again to stop. (To have every reply read aloud automatically: Settings → Voice and listening → Read replies aloud.)
@@ -216,6 +218,22 @@ Good to know:
 - All meetings: **Meetings** in the menu or Settings — search them, open, share or delete. **Reset app** and **Delete all meetings** remove them.
 - Cost: about USD 0.003 per minute for writing it out (about 18 US cents per hour), from your OpenAI credit; summaries, translations and answers cost about 1 cent each.
 
+## Translator
+
+The **文A button** at the top (between Listen and the call buttons), the menu's **Translator** in the Modern look, or **Settings → Translator**.
+
+1. **Translate into:** choose the language. The language you type or speak is recognised by itself, so there's nothing else to choose.
+2. **Text** or **Voice**:
+   - **Text:** type (or tap the microphone and say it), then the arrow. You get only the translation, as text, with buttons to hear it, copy it or share it.
+   - **Voice:** just talk. A second after you stop, the translation is said in your friend's voice (the friend chosen in the app), and it listens again, like a call. **Pause** stops the microphone; it also pauses by itself after 3 minutes of quiet.
+3. **Both ways in a conversation:** whatever is already in the chosen language goes back into the other person's language (the language spoken before, at first the app's language). So you can hold the phone between you and a Spanish speaker: you speak Persian, they hear Spanish; they answer in Spanish, you hear Persian.
+
+It translates like a real interpreter: only the translation — no answers, no comments, no explanations, even if what's said is a question or an instruction. Meaning and tone come first, not word for word: sayings and expressions become the other language's own expression (English "The grass is always greener on the other side" → Persian "مرغ همسایه غازه"), casual stays casual and polite stays polite.
+
+- The language at the top (**Any language → …**) or the 文A button on the Voice screen changes the language; the keyboard and sound-wave buttons switch between Text and Voice.
+- Translations are kept on this device; the bin deletes them (**Reset app** too). They are not part of your chats with your friends.
+- Translations use the latest ChatGPT model; speech is written out by ChatGPT. Cost (from your OpenAI credit): a typed translation is well under 1 US cent; voice is about 1–2 cents per minute of talking.
+
 ## Football blocking in Spain: the backup route
 
 During football matches (and some other sports), the big Spanish internet providers block many Cloudflare addresses. The key keeper runs on Cloudflare, so in Spain the app could stop answering during a match. The **backup route** fixes that: a small relay on Netlify, a different network, that passes the app's requests on to your key keeper. It holds **no keys** and needs no settings.
@@ -317,5 +335,11 @@ If you used a different project name, put your address (ending in `/keys`) as th
 **جعبه‌ی پیام روی کیبورد می‌ماند:** وقتی در جعبه‌ی پیام تایپ یا ویرایش می‌کنید، جعبه درست بالای کیبورد می‌ماند و دیگر به زیر کیبورد برنمی‌گردد. برای بستن کیبورد، علامت ✓ کیبورد را بزنید یا هر جای صفحه بالای کیبورد (روی چت یا نوار بالا) را لمس کنید.
 
 **برنامه‌ی نصب‌شده روی گوشی دیگر جابه‌جا نمی‌شود:** وقتی برنامه را روی صفحه‌ی اصلی آیفون (یا اندروید) نصب کرده‌اید، حالا دقیقاً اندازه‌ی صفحه است — از زیر ساعت تا لبه‌ی پایین — و ثابت می‌ماند: فقط چت بالا و پایین می‌رود، نه کل صفحه، پس قسمت بالای برنامه دیگر از دید خارج نمی‌شود. وقتی تایپ می‌کنید، بالای برنامه دیده می‌شود و جعبه‌ی پیام درست روی کیبورد می‌نشیند.
+
+**مترجم (گزینه‌ی پنجم):** دکمه‌ی 文A در بالای صفحه، بین «Listen» و دکمه‌های تماس. وقتی آن را می‌زنید، اول می‌پرسد به چه زبانی ترجمه شود (زبانی که می‌نویسید یا حرف می‌زنید خودش تشخیص داده می‌شود)، بعد یکی از دو حالت را انتخاب کنید:
+- **Text (متن):** بنویسید یا با میکروفون بگویید؛ فقط ترجمه به صورت متن می‌آید، با دکمه‌های شنیدن، کپی و اشتراک‌گذاری.
+- **Voice (صدا):** فقط حرف بزنید؛ یک ثانیه بعد از تمام شدن حرفتان، ترجمه با صدای دوستی که در برنامه انتخاب کرده‌اید گفته می‌شود و دوباره گوش می‌دهد، مثل تماس صوتی. دکمه‌ی توقف میکروفون را خاموش می‌کند (بعد از ۳ دقیقه سکوت هم خودش متوقف می‌شود).
+
+مترجم مثل یک مترجم واقعی فقط ترجمه می‌کند — بدون جواب دادن، توضیح یا نظر، حتی اگر جمله سؤال یا دستور باشد. معنی و لحن را منتقل می‌کند، نه کلمه به کلمه: ضرب‌المثل‌ها و اصطلاحات به معادل خودشان در زبان مقصد برگردانده می‌شوند (مثلاً «The grass is always greener on the other side» ← «مرغ همسایه غازه»)، و لحن خودمانی یا رسمی حفظ می‌شود. در گفتگو، هر چه به زبان مقصد گفته شود به زبان طرف دیگر برمی‌گردد؛ پس می‌توانید گوشی را بین خودتان و یک اسپانیایی‌زبان بگذارید: شما فارسی می‌گویید و او اسپانیایی می‌شنود، او اسپانیایی جواب می‌دهد و شما فارسی می‌شنوید. ترجمه‌ها روی همین گوشی می‌مانند و با دکمه‌ی سطل زباله (یا «Reset app») پاک می‌شوند. هزینه: هر ترجمه‌ی متنی کمتر از ۱ سنت، ترجمه‌ی صوتی حدود ۱ تا ۲ سنت برای هر دقیقه صحبت. در اندروید و ظاهر مدرن روی گوشی، انتخاب زبان گفتگو حالا دکمه‌ی کره‌ی زمین (🌐) است.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
