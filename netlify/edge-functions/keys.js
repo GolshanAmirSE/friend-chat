@@ -12,7 +12,7 @@
 const KEY_KEEPER = "https://friend-chat-keys.golshanamir.workers.dev";
 
 const PREFIX = "/keys";
-const PASS_ON = ["origin", "content-type", "accept", "x-invite-code", "access-control-request-method", "access-control-request-headers"];
+const PASS_ON = ["origin", "content-type", "accept", "x-invite-code", "x-owner-code", "access-control-request-method", "access-control-request-headers"];
 const DROP = new Set([
   "content-encoding",
   "content-length",
@@ -46,7 +46,7 @@ function problem(request, status, message) {
       "Cache-Control": "no-store",
       "Access-Control-Allow-Origin": request.headers.get("origin") || "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, X-Invite-Code",
+      "Access-Control-Allow-Headers": "Content-Type, X-Invite-Code, X-Owner-Code",
       Vary: "Origin",
     },
   });

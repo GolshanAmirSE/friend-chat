@@ -63,9 +63,11 @@ The keys:
 
 Only the Gemini key is needed to start. The others are optional.
 
-## Update the key keeper (once, for ChatGPT Voice and the GPT-6 models)
+The same Microsoft Foundry resource can also run **everything** instead of OpenAI (chat, files, pictures, voices, the Translator and voice calls) — see **Owner controls** below.
 
-The key keeper only lets through the models the app needs. This version (October 2026) also lets through **GPT-6 Luna** and **GPT-6.1 Sol**, and includes **ChatGPT Voice** (GPT-Live) for voice calls and the latest ChatGPT model for chat. To update it:
+## Update the key keeper (October 2026: Microsoft Azure and owner controls)
+
+This version of the key keeper sends every AI request to the service **you** choose — **Microsoft Azure** (your Microsoft Foundry resource, for example in Sweden Central) or **OpenAI** — at the level you choose, and always uses the newest models. To update it:
 
 1. Open <https://dash.cloudflare.com> → **Workers & Pages** → your worker (for example `friend-chat-keys`) → **Edit code**.
 2. Select all the code, delete it, and paste the whole of `key-keeper/worker.js` from this folder.
@@ -73,11 +75,69 @@ The key keeper only lets through the models the app needs. This version (October
 
 If Cloudflare says the worker is connected to a GitHub repository (it was created with the Deploy button), replace `worker.js` in that repository instead and commit; Cloudflare deploys it by itself.
 
-To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"chatgptVoice": true` and `"newestModels": "GPT-6 Luna and GPT-6.1 Sol allowed (October 2026 version)"`.
+To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"version": "2026-10-15 (owner controls, Azure or OpenAI)"`, `"aiService"` (which service answers) and `"modelsInUse"` (the model for each part of the app). Keys are never shown.
 
-**ChatGPT Voice check:** in the app, **Settings → Check ChatGPT Voice** makes a short test call with your microphone (like a real call; on a computer without a microphone it sends silence) and hangs up once your friend has said hello. Settings keeps two logs, **Latest call** and the check, showing whether OpenAI answered, the connection, sound sent and received, and whether your friend talked; **Copy log** copies one so you can send it for help. If ChatGPT Voice can't connect or stays silent during a call, the app switches to the earlier live voice by itself after about 10 seconds.
+Until you set up the owner controls (next section), the key keeper picks by itself: **Azure** when `AZURE_ENDPOINT` and `AZURE_KEY` are set, otherwise **OpenAI**, at the **Best** level. The backup route (Netlify) needs the new `netlify/edge-functions/keys.js` from this folder too (it now passes the owner code on).
 
-Until you do this, everything still works: voice calls use the earlier live voice (the app tells you once), chat may use the smaller `gpt-4.1-mini` model, and the app uses the earlier models instead of GPT-6 (**Settings → AI connection** shows a note until the key keeper is updated). The backup route (Netlify) needs no change. ChatGPT Voice needs a paid OpenAI account (it isn't available on OpenAI's free tier).
+**ChatGPT Voice check:** in the app, **Settings → Check ChatGPT Voice** makes a short test call with your microphone (like a real call; on a computer without a microphone it sends silence) and hangs up once your friend has said hello. Settings keeps two logs, **Latest call** and the check, showing whether the service answered, the connection, sound sent and received, and whether your friend talked; **Copy log** copies one so you can send it for help. If ChatGPT Voice can't connect or stays silent during a call, the app switches to the earlier live voice by itself after about 10 seconds.
+
+## Owner controls: Microsoft Azure or OpenAI, and Saver, Best or Ultrafast
+
+Only you, the owner, can open them: **Settings → AI connection → Owner controls**, unlocked with your owner code. What you choose there applies to **everyone** using your app, right away — nobody needs to update anything.
+
+- **AI service: Microsoft Azure or OpenAI.** Everything switches together: chat, typed translations, questions about files, presentations, meeting notes (Listen), photos and pictures, voice typing, Read aloud, the Translator, and voice calls (ChatGPT Voice). Video calls (live video friends) always use Microsoft's live video on your Azure resource, as before.
+- **Level:**
+
+  | Level | Uses (today) | Cost |
+  | --- | --- | --- |
+  | **Saver** | GPT-6 Luna for chat, files and quick jobs · GPT-Image-2.5 Flare · GPT-Realtime-2.1 mini (Translator voice) · GPT-4o mini Transcribe · GPT-Audio mini (Azure) or GPT-4o mini TTS (OpenAI) for Read aloud · voice calls stay on GPT-Live | Lowest |
+  | **Best** (recommended) | ChatGPT's newest model for chat · GPT-6.1 Sol for files, presentations and meeting notes · GPT-6 Luna for memory and quick jobs · GPT-Image-2.5 Sunburst · GPT-Live for voice calls · GPT-Realtime-2.1 · GPT-Transcribe · GPT-Audio 1.5 (Azure) or GPT-4o mini TTS (OpenAI) for Read aloud | Normal |
+  | **Ultrafast** | Best, plus OpenAI's **Ultrafast** mode for answers about files and presentations (several times quicker, about 6× the price for those answers). **Azure doesn't offer Ultrafast yet:** until it does, this level works exactly like Best, and the key keeper switches Ultrafast on by itself as soon as Azure offers it (it checks again every 6 hours). | Highest |
+
+- **Newer models automatically** (on): when a newer model comes out (for example a GPT-6.2 Sol), the app uses it by itself. On Azure the key keeper also deploys it for you if automatic deployment is set up (below). Turn it off to keep today's models.
+- **OpenAI as backup** (on, shown when Azure is chosen and the key keeper has `OPENAI_KEY`): if Azure can't answer — a model isn't deployed yet, or it's too busy — OpenAI answers instead. Turn it off, or delete `OPENAI_KEY`, to use only Azure.
+- **Models in use** lists the model for each part of the app; **Check for new models now** looks right away; **Lock** locks the controls on that device again.
+
+### Set up the owner controls (once)
+
+1. Cloudflare → your worker → **Settings → Variables and Secrets → Add**: name `OWNER_CODE`, type **Secret**, value: a long code only you know (not your invite code). Select **Deploy**.
+2. Storage for your choices: Cloudflare → **Storage & Databases → KV** (Workers KV) → **Create** (name it, for example, `friend-chat-settings`). Then open your worker → **Bindings** (or **Settings → Bindings**) → **Add binding → KV namespace**: variable name `FRIEND_KV`, choose the namespace you just made, and select **Deploy**.
+3. Optional: add `AZURE_REGION` (Text) = `swedencentral`, so the app shows "Sweden Central" (it's filled in by itself once automatic deployment is set up).
+4. In the app: **Settings → AI connection → Owner controls** → enter your owner code → **Unlock**. Your device remembers it until you select **Lock**.
+
+### Run everything on Microsoft Azure in Sweden Central
+
+The key keeper uses the Microsoft Foundry resource you already added for live video (`AZURE_ENDPOINT` and `AZURE_KEY`, from the resource's **Keys and Endpoint** page) for everything; it works out the resource's OpenAI address by itself. For speed in Europe, use a resource in **Sweden Central** — it has every model the app needs. The models must be **deployed** in that resource. Choose one way:
+
+**A. Automatically (recommended): the key keeper deploys the newest models and keeps them up to date.**
+
+1. In the Azure portal (<https://portal.azure.com>), open **Cloud Shell** (the `>_` button at the top) and choose **Bash**.
+2. Paste this, with your resource's name and resource group instead of the parts in `< >`:
+
+   ```
+   az ad sp create-for-rbac --name friend-chat-keeper --role "Cognitive Services Contributor" --scopes $(az cognitiveservices account show -n <resource-name> -g <resource-group> --query id -o tsv)
+   ```
+
+   It shows `appId`, `password` and `tenant`. Then run this to show the resource ID:
+
+   ```
+   az cognitiveservices account show -n <resource-name> -g <resource-group> --query id -o tsv
+   ```
+
+3. In Cloudflare → your worker → **Variables and Secrets**, add: `AZURE_TENANT_ID` (Text) = `tenant`, `AZURE_CLIENT_ID` (Text) = `appId`, `AZURE_CLIENT_SECRET` (**Secret**) = `password`, `AZURE_RESOURCE_ID` (Text) = the resource ID. Select **Deploy**.
+4. In the app: **Owner controls → Check for new models now.** The key keeper deploys whatever is missing — in the **EU Data Zone** where Azure offers it (your data is processed in the EU), otherwise Global — and from then on checks by itself every 6 hours. For a fixed daily check, add a Cron Trigger: your worker → **Settings → Trigger events** (Cron Triggers) → **Add**, for example `0 4 * * *` (every day at 04:00 UTC).
+   If a deployment needs more quota, the key keeper asks for less and lists what it couldn't do under **Details from Azure** in the owner controls.
+
+**B. By hand:** in Microsoft Foundry (<https://ai.azure.com>) → your resource → **Models + endpoints → Deploy model**, deploy each of these with the **deployment name exactly the same as the model name**: `gpt-chat-latest`, `gpt-6.1-sol`, `gpt-6-luna`, `gpt-live-1`, `gpt-realtime-2.1`, `gpt-realtime-2.1-mini`, `gpt-transcribe`, `gpt-4o-mini-transcribe`, `gpt-audio-1.5`, `gpt-audio-mini`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-flare`. (You only need the ones for the levels you use. If Azure asks you to request access for a model, follow its link.) When a newer model comes out, deploy it the same way and the app starts using it.
+
+Good to know:
+
+- Azure's prices are the same as OpenAI's (Global deployments); the EU Data Zone costs about 10% more. You pay Azure instead of OpenAI — useful when you have Azure credit.
+- **Read aloud on Azure** uses **GPT-Audio** (GPT-Audio mini on Saver), in your friends' own voices: Azure doesn't offer OpenAI's gpt-4o-mini-tts in Sweden Central.
+- Web search (weather, news) on Azure uses Bing grounding, billed by Azure (about USD 14 per 1,000 searches).
+- `gpt-chat-latest` on Azure is a preview model that Azure replaces every few months; with **Newer models automatically** on, the key keeper moves to each new version by itself.
+- To go back to OpenAI, choose **OpenAI** in the owner controls. Nothing else changes.
+- Calls and their sound settings are unchanged.
 
 ## Make it ready to use — no keys for your visitors
 
@@ -97,6 +157,7 @@ Your keys must never go into `index.html`, `friend-config.json` or anywhere else
    | `AZURE_ENDPOINT` | Text | Your Microsoft Foundry endpoint (optional) |
    | `AZURE_KEY` | Secret | Your Microsoft Foundry key (optional) |
    | `INVITE_CODE` | Secret | A code you give your friends (recommended — it stops strangers from using your keys) |
+   | `OWNER_CODE` | Secret | Your own code for the owner controls (see "Owner controls" above) |
 
 4. Check it: open your worker's address with `/status` at the end (for example `https://friend-chat-keys.yourname.workers.dev/status`). You should see `"keyKeeper": "running"`, your app's address, and `true` next to each key you added. The keys themselves are never shown.
 5. Copy the worker's address (for example `https://friend-chat-keys.yourname.workers.dev`).
@@ -381,5 +442,12 @@ If you used a different project name, put your address (ending in `/keys`) as th
 - **تغییر عکس و ساختن تصویر:** **GPT-Image-2.5 Sunburst**، جدیدترین مدل تصویر OpenAI که چهره‌ها و جزئیات را بهتر نگه می‌دارد.
 - **تماس‌ها و صدایشان هیچ تغییری نکرده‌اند:** GPT-Live 1 (تماس صوتی) و GPT-Realtime-2.1 (تماس تصویری و صدای مترجم) هنوز جدیدترین مدل‌های صدای زنده‌ی OpenAI هستند. GPT-6.1 Sol و Ultrafast مدل‌های متنی‌اند، نه صدای زنده.
 - **یک بار key keeper را به‌روز کنید:** فایل `key-keeper/worker.js` جدید را مثل دفعه‌ی قبل در Cloudflare جایگزین کنید و Deploy بزنید (بخش «Update the key keeper» بالا). تا آن موقع همه چیز کار می‌کند، فقط برنامه از مدل‌های قبلی استفاده می‌کند و در «تنظیمات ← AI connection» یک یادآوری نشان می‌دهد.
+
+**Azure و کنترل‌های مالک (۱۵ اکتبر، شب):** حالا خودتان انتخاب می‌کنید که هوش مصنوعی برنامه از کجا جواب بدهد — **Microsoft Azure** (منبع Foundry شما در Sweden Central) یا **OpenAI** — و در چه سطحی. این کار را در «تنظیمات ← AI connection ← Owner controls» انجام می‌دهید (با کد مالک باز می‌شود و فقط شما آن را دارید). انتخاب شما فوراً برای همه‌ی کسانی که از برنامه استفاده می‌کنند اعمال می‌شود و همه چیز با هم عوض می‌شود: چت، ترجمه‌ی متنی، سؤال درباره‌ی فایل، پاورپوینت، خلاصه‌ی جلسه، عکس و تصویر، میکروفون، Read aloud، مترجم و تماس صوتی. تماس تصویری مثل قبل از ویدیوی زنده‌ی Microsoft روی Azure استفاده می‌کند.
+- **سه سطح:** **Saver** (کم‌هزینه‌ترین: GPT-6 Luna و مدل‌های سبک‌تر)، **Best** (پیشنهادی: جدیدترین مدل‌های برتر — جدیدترین مدل ChatGPT برای چت، GPT-6.1 Sol برای فایل و پاورپوینت، GPT-Image-2.5 Sunburst، GPT-Live برای تماس)، و **Ultrafast** (مثل Best، به‌علاوه‌ی حالت Ultrafast برای جواب درباره‌ی فایل‌ها و پاورپوینت؛ چند برابر سریع‌تر و حدود ۶ برابر گران‌تر). **Azure هنوز Ultrafast ندارد:** تا وقتی ندارد، این سطح دقیقاً مثل Best کار می‌کند و به محض اینکه Azure آن را ارائه کند، key keeper خودش روشنش می‌کند (هر ۶ ساعت یک بار بررسی می‌کند).
+- **«Newer models automatically»** (روشن): هر مدل جدیدتری که بیاید، برنامه خودش از آن استفاده می‌کند؛ در Azure، اگر استقرار خودکار را راه بیندازید، key keeper خودش مدل را در منبع شما مستقر (Deploy) هم می‌کند. **«OpenAI as backup»**: اگر Azure نتواند جواب بدهد، OpenAI جواب می‌دهد؛ برای استفاده‌ی فقط از Azure خاموشش کنید.
+- **Read aloud در Azure** با **GPT-Audio** و با همان صدای دوستانتان کار می‌کند (Azure مدل gpt-4o-mini-tts را در Sweden Central ندارد). قیمت‌های Azure همان قیمت‌های OpenAI است (در EU Data Zone حدود ۱۰٪ بیشتر)، فقط پولش را به Azure می‌دهید.
+- **راه‌اندازی (یک بار):** ۱) کد جدید `key-keeper/worker.js` را مثل دفعه‌های قبل در Cloudflare جایگزین کنید و Deploy بزنید (و فایل جدید `netlify/edge-functions/keys.js` را هم در GitHub). ۲) در Cloudflare، در «Variables and Secrets» یک Secret به نام `OWNER_CODE` با یک کد طولانی که فقط خودتان می‌دانید اضافه کنید. ۳) در Cloudflare: Storage & Databases ← KV ← Create، بعد در worker خودتان: Bindings (یا Settings ← Bindings) ← Add binding ← KV namespace با نام متغیر `FRIEND_KV`، و Deploy. ۴) (اختیاری) `AZURE_REGION` را `swedencentral` بگذارید. ۵) در برنامه: تنظیمات ← AI connection ← Owner controls ← کد مالک ← Unlock.
+- **مدل‌ها در Azure:** یا **خودکار** (پیشنهادی) — در Cloud Shell پورتال Azure دستوری را که در بخش انگلیسی «Run everything on Microsoft Azure in Sweden Central» آمده اجرا کنید و چهار مقدار `AZURE_TENANT_ID`، `AZURE_CLIENT_ID`، `AZURE_CLIENT_SECRET` و `AZURE_RESOURCE_ID` را در Cloudflare اضافه کنید، بعد در برنامه «Check for new models now» را بزنید؛ یا **دستی** — در ai.azure.com هر مدل فهرست‌شده در آن بخش را با نام استقرار دقیقاً برابر نام مدل Deploy کنید. تماس‌ها و تنظیمات صدایشان هیچ تغییری نکرده‌اند.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
