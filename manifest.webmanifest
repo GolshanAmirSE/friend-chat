@@ -1,22 +1,24 @@
 {
   "name": "Friend Chat",
   "short_name": "Friend Chat",
-  "description": "Talk with a friend by text, voice call or video call in 22 languages, including Persian.",
+  "description": "Your AI friend for chats, voice calls and video calls in 23 languages — plus Listen for meeting notes and a live Translator.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0f3d26",
-  "theme_color": "#0f3d26",
+  "background_color": "#2e2448",
+  "theme_color": "#fbf6f3",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icon-maskable-512.png",
