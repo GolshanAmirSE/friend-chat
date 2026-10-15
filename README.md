@@ -24,6 +24,14 @@ Created by **Amir Golshan**.
 - **The latest ChatGPT model for chat:** replies come from `chat-latest` (the newest model used in ChatGPT) and appear word by word as they're written; your friend searches the web by itself when a question needs it (about 1 US cent per message, plus about 1 cent per web search, from your OpenAI credit). If the key keeper doesn't allow it yet, the app uses `gpt-4.1-mini` instead.
 - **Voice calls with ChatGPT Voice:** voice calls use OpenAI's **GPT-Live** (`gpt-live-1`), the same voice model as ChatGPT Voice. Your friend listens while talking, says "mm-hmm", lets you cut in at any moment and answers faster. When a question needs the internet or more thought (weather, news, prices, advice), they hand it to a helper model (`gpt-6-luna` with web search) and keep talking while it works. About USD 0.05 per minute of call, plus the helper's searches. Settings → **ChatGPT Voice on voice calls** switches back to the earlier live voice; if ChatGPT Voice can't start, the call uses the earlier voice by itself.
 - **Video calls on OpenAI's live voice model** (`gpt-realtime-2.1`) with live video friends (ChatGPT Voice doesn't take camera pictures, so video calls keep this model).
+- **OpenAI's newest models where they help (October 2026):**
+  - **Questions about your files and presentations:** **GPT-6.1 Sol** (`gpt-6.1-sol`), OpenAI's newest reasoning model, in its **Ultrafast** mode — several times quicker, but about 6 times the normal price. **Settings → AI connection → Ultrafast answers about files** turns Ultrafast off (GPT-6.1 Sol then works at its usual speed, for about a sixth of the cost).
+  - **Meeting notes and questions about a meeting (Listen):** GPT-6.1 Sol at its usual speed.
+  - **Quick jobs** — memory notes, the diary, key points, looking at the camera, look-ups during calls, reading PDFs, translating meeting lines: **GPT-6 Luna** (`gpt-6-luna`), quicker and cheaper than the model before.
+  - **Writing out what you say** (the chat microphone, Listen and the Translator): **GPT-Transcribe** (`gpt-transcribe`), OpenAI's newest transcription model — more accurate, also with accents and mixed languages.
+  - **Photo edits and new pictures:** **GPT-Image-2.5 Sunburst**, OpenAI's newest picture model, which keeps faces and details better.
+  - If your OpenAI account or your key keeper doesn't offer one of these yet, the app quietly uses the earlier model instead (`chat-latest`, `gpt-4.1-mini`, `gpt-4o-mini-transcribe`, OpenAI's earlier picture model) — nothing stops working.
+  - **Calls keep their models and their sound:** GPT-Live 1 (voice calls) and GPT-Realtime-2.1 (video calls and the Translator's voice) are still OpenAI's newest live voice models. GPT-6.1 Sol and Ultrafast are text models, not live voice models.
 - **Eight friends who look and act like real people:** Celine, Nia, Lori, Meg, Malik, Rowan, Harry and Max appear as real-time, full-body video on video calls — they talk, smile, move and react while you talk. Four of them were filmed from real people. Each has their own voice (a different OpenAI natural voice for each friend) and their own way of speaking, so each sounds like themselves in text, voice and video calls.
 - **Choosing a friend:** each one has a real photo, a short description and a Hear button to listen to their voice first. You also choose the conversation language and the friend's personality.
 - **Calls without text on screen:** everything said on calls is still saved in the chat (marked "Voice call with …" or "Video call with …"). The Captions button shows it during a call if you want.
@@ -55,9 +63,9 @@ The keys:
 
 Only the Gemini key is needed to start. The others are optional.
 
-## Update the key keeper (once, for ChatGPT Voice)
+## Update the key keeper (once, for ChatGPT Voice and the GPT-6 models)
 
-The key keeper only lets through the models the app needs. This version adds **ChatGPT Voice** (GPT-Live) for voice calls (and includes the latest ChatGPT model for chat). To update it:
+The key keeper only lets through the models the app needs. This version (October 2026) also lets through **GPT-6 Luna** and **GPT-6.1 Sol**, and includes **ChatGPT Voice** (GPT-Live) for voice calls and the latest ChatGPT model for chat. To update it:
 
 1. Open <https://dash.cloudflare.com> → **Workers & Pages** → your worker (for example `friend-chat-keys`) → **Edit code**.
 2. Select all the code, delete it, and paste the whole of `key-keeper/worker.js` from this folder.
@@ -65,11 +73,11 @@ The key keeper only lets through the models the app needs. This version adds **C
 
 If Cloudflare says the worker is connected to a GitHub repository (it was created with the Deploy button), replace `worker.js` in that repository instead and commit; Cloudflare deploys it by itself.
 
-To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"chatgptVoice": true`.
+To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"chatgptVoice": true` and `"newestModels": "GPT-6 Luna and GPT-6.1 Sol allowed (October 2026 version)"`.
 
 **ChatGPT Voice check:** in the app, **Settings → Check ChatGPT Voice** makes a short test call with your microphone (like a real call; on a computer without a microphone it sends silence) and hangs up once your friend has said hello. Settings keeps two logs, **Latest call** and the check, showing whether OpenAI answered, the connection, sound sent and received, and whether your friend talked; **Copy log** copies one so you can send it for help. If ChatGPT Voice can't connect or stays silent during a call, the app switches to the earlier live voice by itself after about 10 seconds.
 
-Until you do this, everything still works: voice calls use the earlier live voice (the app tells you once), and chat may use the smaller `gpt-4.1-mini` model. The backup route (Netlify) needs no change. ChatGPT Voice needs a paid OpenAI account (it isn't available on OpenAI's free tier).
+Until you do this, everything still works: voice calls use the earlier live voice (the app tells you once), chat may use the smaller `gpt-4.1-mini` model, and the app uses the earlier models instead of GPT-6 (**Settings → AI connection** shows a note until the key keeper is updated). The backup route (Netlify) needs no change. ChatGPT Voice needs a paid OpenAI account (it isn't available on OpenAI's free tier).
 
 ## Make it ready to use — no keys for your visitors
 
@@ -211,7 +219,7 @@ Tap **+** next to the message box (on a computer: the **+** at the bottom left o
 - **Change a photo or make a picture:** send a photo with "put me on a beach", "change my clothes to a suit", "remove the car", "make the sky sunset" — or ask for a picture without a photo ("draw a cosy café in Barcelona"). It takes up to a minute. Faces are kept as close to the original as possible. Tap the picture to see it large; **Save or share** saves it to Photos/Files or sends it. If it doesn't work, the card says why and has **Try again**.
 - **The first picture may need a one-time OpenAI check:** OpenAI may ask you to verify your organisation before its picture model can be used. The app tells you if so: on **platform.openai.com → Settings → Organization → General → Verify Organization** (a few minutes, with an ID). Nothing changes in the key keeper.
 - Photos, pictures and files stay on this device with the chat (deleting a message, **Delete all conversations** or **Reset app** removes them). They are sent to OpenAI only with the message you send.
-- Cost (from your OpenAI credit): a question about a photo or a short file about 1 US cent; a long document a few cents; a presentation about 1–2 cents; a new picture about 5–25 cents.
+- Cost (from your OpenAI credit), with GPT-6.1 Sol in Ultrafast mode: a question about a short file about 9 US cents; about a long document about 30 cents; a presentation about 30–50 cents. With **Ultrafast answers about files** turned off: about 1.5 cents, 5 cents and 5–9 cents. A question about a photo about 1 cent; a new picture about 5–25 cents. (Estimates; OpenAI's price list has the exact prices.)
 
 ## Listen: write down a meeting
 
@@ -230,7 +238,7 @@ Good to know:
 - No internet for a moment? What's said is kept (in memory) and written out when the connection is back.
 - Nothing written down? The message says why (no sound reached the microphone, no words recognised, or too short). **Settings → Voice and listening → Latest meeting** shows what happened step by step; **Copy log** and send it if you need help.
 - All meetings: **Meetings** in the menu or Settings — search them, open, share or delete. **Reset app** and **Delete all meetings** remove them.
-- Cost: about USD 0.003 per minute for writing it out (about 18 US cents per hour), from your OpenAI credit; summaries, translations and answers cost about 1 cent each.
+- Cost: about USD 0.0045 per minute for writing it out with GPT-Transcribe (about 27 US cents per hour), from your OpenAI credit; the notes of a one-hour meeting cost about 6 cents (GPT-6.1 Sol), a question about it about 3 cents, translations under 1 cent.
 
 ## Translator
 
@@ -329,7 +337,7 @@ If you used a different project name, put your address (ending in `/keys`) as th
 
 **نکات کلیدی و پاک کردن همه چیز:** نکات کلیدی هر گفتگو حالا با ChatGPT نوشته می‌شود (Gemini فقط اگر ChatGPT در دسترس نباشد). حافظه و دفترچه‌ی دوستان هم همین‌طور. با زدن «Reset app» در تنظیمات، اول پیامی باز می‌شود که دقیقاً می‌گوید چه چیزهایی پاک می‌شوند — همه‌ی گفتگوها، حافظه‌ها، تنظیمات، گزارش‌ها (لاگ‌ها) و کد دعوت — و می‌توانید اول از گفتگوها نسخه‌ی پشتیبان بگیرید. فقط با دکمه‌ی قرمز «Delete everything and reset» همه چیز پاک می‌شود.
 
-**حالت «گوش دادن» (Listen) — نوشتن متن جلسه:** گزینه‌ی چهارم، کنار چت، تماس صوتی و تماس تصویری: دکمه‌ی گوش در بالای صفحه. زبان جلسه را انتخاب کنید («Automatic» هر زبانی را می‌فهمد، حتی چند زبان در یک جلسه) و «Start listening» را بزنید. گوشی را نزدیک کسانی که حرف می‌زنند بگذارید؛ متن هر چند ثانیه با ساعتش روی صفحه می‌آید. صدا ضبط و ذخیره نمی‌شود — فقط متن روی گوشی شما می‌ماند. دکمه‌ی «Dark screen» صفحه را برای صرفه‌جویی در باتری سیاه می‌کند و گوش دادن ادامه پیدا می‌کند. گوشی اجازه نمی‌دهد سایت‌ها وقتی صفحه قفل است از میکروفون استفاده کنند؛ برای همین برنامه صفحه را روشن نگه می‌دارد، و اگر صفحه قفل شد یا به برنامه‌ی دیگری رفتید، با برگشتن ادامه می‌دهد و فاصله در متن علامت می‌خورد. با «Stop & save» جلسه ذخیره می‌شود و خلاصه، نکات کلیدی و تصمیم‌ها و کارها نوشته می‌شود. از منوی «Language» خلاصه و کل متن را به هر کدام از ۲۳ زبان ببینید، در بخش «Ask» هر وقت خواستید درباره‌ی جلسه سؤال کنید، و با «Share or save as PDF» متن کامل، خلاصه یا نکات کلیدی را (به زبانی که انتخاب می‌کنید) با ایمیل، پیامک، واتس‌اپ یا به صورت فایل PDF بفرستید. هزینه حدود ۱۸ سنت برای هر ساعت است.
+**حالت «گوش دادن» (Listen) — نوشتن متن جلسه:** گزینه‌ی چهارم، کنار چت، تماس صوتی و تماس تصویری: دکمه‌ی گوش در بالای صفحه. زبان جلسه را انتخاب کنید («Automatic» هر زبانی را می‌فهمد، حتی چند زبان در یک جلسه) و «Start listening» را بزنید. گوشی را نزدیک کسانی که حرف می‌زنند بگذارید؛ متن هر چند ثانیه با ساعتش روی صفحه می‌آید. صدا ضبط و ذخیره نمی‌شود — فقط متن روی گوشی شما می‌ماند. دکمه‌ی «Dark screen» صفحه را برای صرفه‌جویی در باتری سیاه می‌کند و گوش دادن ادامه پیدا می‌کند. گوشی اجازه نمی‌دهد سایت‌ها وقتی صفحه قفل است از میکروفون استفاده کنند؛ برای همین برنامه صفحه را روشن نگه می‌دارد، و اگر صفحه قفل شد یا به برنامه‌ی دیگری رفتید، با برگشتن ادامه می‌دهد و فاصله در متن علامت می‌خورد. با «Stop & save» جلسه ذخیره می‌شود و خلاصه، نکات کلیدی و تصمیم‌ها و کارها نوشته می‌شود. از منوی «Language» خلاصه و کل متن را به هر کدام از ۲۳ زبان ببینید، در بخش «Ask» هر وقت خواستید درباره‌ی جلسه سؤال کنید، و با «Share or save as PDF» متن کامل، خلاصه یا نکات کلیدی را (به زبانی که انتخاب می‌کنید) با ایمیل، پیامک، واتس‌اپ یا به صورت فایل PDF بفرستید. هزینه حدود ۲۷ سنت برای هر ساعت است (با GPT-Transcribe).
 
 **تماس تصویری در آیفون:** دکمه‌های تماس حالا پایین صفحه هستند تا صورت دوستتان همیشه دیده شود (اسم و زمان تماس کوچک در گوشه‌ی بالا).
 
@@ -343,7 +351,7 @@ If you used a different project name, put your address (ending in `/keys`) as th
 
 **ساختن پاورپوینت:** بنویسید «از این فایل یک پاورپوینت بساز» (یا «یک ارائه درباره‌ی سفرمان به رم بساز»). کارتی با دکمه‌ی **Open or save** می‌آید: در آیفون منوی اشتراک باز می‌شود و می‌توانید **PowerPoint** یا **Keynote** را انتخاب کنید یا در **Files** ذخیره کنید. اسلایدها یادداشت سخنران هم دارند و اسلایدهای فارسی، کردی و عربی راست‌به‌چپ نوشته می‌شوند.
 
-**تغییر عکس یا ساختن تصویر:** یک عکس بفرستید و بنویسید «من را کنار دریا بگذار»، «لباسم را کت‌وشلوار کن»، «ماشین را حذف کن» — یا بدون عکس بخواهید «یک کافه‌ی دنج در بارسلونا بکش». تا یک دقیقه طول می‌کشد و چهره‌ها تا جای ممکن همان‌طور که هستند می‌مانند. با **Save or share** تصویر را در Photos یا Files ذخیره کنید یا بفرستید. **بار اول ممکن است OpenAI بخواهد سازمان (Organization) شما را یک بار تأیید کند:** برنامه در این صورت خودش می‌گوید؛ در platform.openai.com ← Settings ← Organization ← General ← Verify Organization (چند دقیقه، با کارت شناسایی). هزینه: هر تصویر حدود ۵ تا ۲۵ سنت، هر سؤال درباره‌ی عکس یا فایل کوتاه حدود ۱ سنت، هر پاورپوینت حدود ۱ تا ۲ سنت. در key keeper چیزی لازم نیست عوض شود.
+**تغییر عکس یا ساختن تصویر:** یک عکس بفرستید و بنویسید «من را کنار دریا بگذار»، «لباسم را کت‌وشلوار کن»، «ماشین را حذف کن» — یا بدون عکس بخواهید «یک کافه‌ی دنج در بارسلونا بکش». تا یک دقیقه طول می‌کشد و چهره‌ها تا جای ممکن همان‌طور که هستند می‌مانند. با **Save or share** تصویر را در Photos یا Files ذخیره کنید یا بفرستید. **بار اول ممکن است OpenAI بخواهد سازمان (Organization) شما را یک بار تأیید کند:** برنامه در این صورت خودش می‌گوید؛ در platform.openai.com ← Settings ← Organization ← General ← Verify Organization (چند دقیقه، با کارت شناسایی). هزینه: هر تصویر حدود ۵ تا ۲۵ سنت، هر سؤال درباره‌ی عکس حدود ۱ سنت؛ سؤال درباره‌ی فایل و پاورپوینت با GPT-6.1 Sol (پایین‌تر، بخش «جدیدترین مدل‌های OpenAI» را ببینید). در key keeper چیزی لازم نیست عوض شود.
 
 **سؤال صوتی درباره‌ی جلسه:** در بخش «Ask» هر جلسه، حالا می‌توانید به جای تایپ، دکمه‌ی میکروفون را بزنید و سؤالتان را بگویید؛ وقتی حرفتان تمام شد خودش می‌پرسد و جواب را برایتان می‌خواند (دکمه‌ی بلندگو کنار هر جواب، دوباره می‌خواندش).
 
@@ -360,5 +368,14 @@ If you used a different project name, put your address (ending in `/keys`) as th
 - **Voice (صدا):** فقط حرف بزنید؛ با همان صدای زنده‌ی تماس صوتی (ChatGPT Voice) کار می‌کند: صدای شما را مستقیم می‌شنود، صبر می‌کند تا جمله‌تان تمام شود (مکث کوتاه برای فکر کردن حساب نمی‌شود) و بلافاصله ترجمه را با صدای دوستی که در برنامه انتخاب کرده‌اید می‌گوید و دوباره گوش می‌دهد، مثل یک مترجم واقعی در یک گفتگوی معمولی؛ سریع است، ولی کسی وسط حرف دیگری نمی‌پرد. دکمه‌ی توقف میکروفون را خاموش می‌کند (بعد از ۳ دقیقه سکوت هم خودش متوقف می‌شود). اگر صدای زنده در دسترس نباشد، مرحله به مرحله ترجمه می‌کند (کمی کندتر).
 
 مترجم مثل یک مترجم واقعی فقط ترجمه می‌کند — بدون جواب دادن، توضیح یا نظر، حتی اگر جمله سؤال یا دستور باشد. معنی و لحن را منتقل می‌کند، نه کلمه به کلمه: ضرب‌المثل‌ها و اصطلاحات به معادل خودشان در زبان مقصد برگردانده می‌شوند (مثلاً «The grass is always greener on the other side» ← «مرغ همسایه غازه»)، و لحن خودمانی یا رسمی حفظ می‌شود. در گفتگو: هر چه به هر زبان دیگری (یا مخلوطی از چند زبان) نوشته یا گفته شود، به زبان مقصد ترجمه می‌شود؛ و هر چه فقط به زبان مقصد گفته شود، به زبانی برمی‌گردد که گفتگو با آن شروع شد (اولین زبان دیگری که می‌شنود؛ تا آن موقع زبان برنامه). هیچ‌وقت به زبان سوم ترجمه نمی‌کند و یک جمله‌ی اشتباه شنیده‌شده آن را عوض نمی‌کند. پس می‌توانید گوشی را بین خودتان و یک اسپانیایی‌زبان بگذارید: شما فارسی می‌گویید و او اسپانیایی می‌شنود، او اسپانیایی جواب می‌دهد و شما فارسی می‌شنوید. هر بار که مترجم را باز می‌کنید یک گفتگوی تازه شروع می‌شود و گفتگوهای قبلی نگه داشته می‌شوند: دکمه‌ی ساعت در بالا (یا «Earlier translations») فهرستشان را نشان می‌دهد — می‌توانید در همه‌ی ترجمه‌ها جستجو کنید، یک گفتگو را باز کنید، نکات کلیدی‌اش را به هر زبانی بگیرید، نکات کلیدی یا کل گفتگو را بفرستید (ایمیل، پیام، واتس‌اپ، کپی، PDF) یا پاکش کنید. ترجمه‌ها فقط روی همین گوشی می‌مانند («Reset app» هم پاکشان می‌کند). هزینه: هر ترجمه‌ی متنی کمتر از ۱ سنت؛ ترجمه‌ی صوتی تقریباً مثل تماس صوتی (حدود ۵ سنت برای هر دقیقه‌ای که گوش می‌دهد)، پس وقتی کسی حرف نمی‌زند دکمه‌ی توقف را بزنید. در اندروید و ظاهر مدرن روی گوشی، انتخاب زبان گفتگو حالا دکمه‌ی کره‌ی زمین (🌐) است.
+
+**جدیدترین مدل‌های OpenAI (۱۵ اکتبر ۲۰۲۶):** برنامه حالا هر جا که فایده دارد از جدیدترین مدل‌ها استفاده می‌کند:
+- **سؤال درباره‌ی فایل‌ها و ساختن پاورپوینت:** با **GPT-6.1 Sol**، جدیدترین مدل استدلالی OpenAI، در حالت **Ultrafast** — چند برابر سریع‌تر، ولی حدود ۶ برابر گران‌تر. در «تنظیمات ← AI connection ← Ultrafast answers about files» می‌توانید Ultrafast را خاموش کنید (آن‌وقت GPT-6.1 Sol با سرعت معمولی و حدود یک‌ششم هزینه کار می‌کند). هزینه‌ی تقریبی با Ultrafast: سؤال درباره‌ی یک فایل کوتاه حدود ۹ سنت، یک سند طولانی حدود ۳۰ سنت، یک پاورپوینت ۳۰ تا ۵۰ سنت؛ بدون Ultrafast: حدود ۱٫۵ سنت، ۵ سنت و ۵ تا ۹ سنت.
+- **خلاصه و سؤال درباره‌ی جلسه (Listen):** GPT-6.1 Sol با سرعت معمولی.
+- **کارهای سریع** (یادداشت‌های حافظه، دفترچه، نکات کلیدی، دیدن با دوربین، جستجو در حین تماس، خواندن PDF): **GPT-6 Luna**، سریع‌تر و ارزان‌تر از مدل قبلی.
+- **نوشتن حرف‌های شما** (میکروفون چت، Listen و مترجم): **GPT-Transcribe**، جدیدترین مدل OpenAI برای تبدیل گفتار به متن — دقیق‌تر، حتی با لهجه و چند زبان با هم.
+- **تغییر عکس و ساختن تصویر:** **GPT-Image-2.5 Sunburst**، جدیدترین مدل تصویر OpenAI که چهره‌ها و جزئیات را بهتر نگه می‌دارد.
+- **تماس‌ها و صدایشان هیچ تغییری نکرده‌اند:** GPT-Live 1 (تماس صوتی) و GPT-Realtime-2.1 (تماس تصویری و صدای مترجم) هنوز جدیدترین مدل‌های صدای زنده‌ی OpenAI هستند. GPT-6.1 Sol و Ultrafast مدل‌های متنی‌اند، نه صدای زنده.
+- **یک بار key keeper را به‌روز کنید:** فایل `key-keeper/worker.js` جدید را مثل دفعه‌ی قبل در Cloudflare جایگزین کنید و Deploy بزنید (بخش «Update the key keeper» بالا). تا آن موقع همه چیز کار می‌کند، فقط برنامه از مدل‌های قبلی استفاده می‌کند و در «تنظیمات ← AI connection» یک یادآوری نشان می‌دهد.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
