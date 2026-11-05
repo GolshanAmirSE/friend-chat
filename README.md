@@ -65,7 +65,7 @@ Only the Gemini key is needed to start. The others are optional.
 
 The same Microsoft Foundry resource can also run **everything** instead of OpenAI (chat, files, pictures, voices, the Translator and voice calls) — see **Owner controls** below.
 
-## Update the key keeper (October 2026: Microsoft Azure and owner controls)
+## Update the key keeper (November 2026: tasks carry on when you leave the app)
 
 This version of the key keeper sends every AI request to the service **you** choose — **Microsoft Azure** (your Microsoft Foundry resource, for example in Sweden Central) or **OpenAI** — at the level you choose, and always uses the newest models. To update it:
 
@@ -75,11 +75,21 @@ This version of the key keeper sends every AI request to the service **you** cho
 
 If Cloudflare says the worker is connected to a GitHub repository (it was created with the Deploy button), replace `worker.js` in that repository instead and commit; Cloudflare deploys it by itself.
 
-To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"version": "2026-10-15 (owner controls, Azure or OpenAI)"`, `"aiService"` (which service answers) and `"modelsInUse"` (the model for each part of the app). Keys are never shown.
+To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"version": "2026-11-05 (owner controls, Azure or OpenAI, background jobs)"`, `"backgroundJobs": true`, `"aiService"` (which service answers) and `"modelsInUse"` (the model for each part of the app). Keys are never shown.
 
 Until you set up the owner controls (next section), the key keeper picks by itself: **Azure** when `AZURE_ENDPOINT` and `AZURE_KEY` are set, otherwise **OpenAI**, at the **Best** level. The backup route (Netlify) needs the new `netlify/edge-functions/keys.js` from this folder too (it now passes the owner code on).
 
 **ChatGPT Voice check:** in the app, **Settings → Check ChatGPT Voice** makes a short test call with your microphone (like a real call; on a computer without a microphone it sends silence) and hangs up once your friend has said hello. Settings keeps two logs, **Latest call** and the check, showing whether the service answered, the connection, sound sent and received, and whether your friend talked; **Copy log** copies one so you can send it for help. If ChatGPT Voice can't connect or stays silent during a call, the app switches to the earlier live voice by itself after about 10 seconds.
+
+## Leaving the app while your friend is working
+
+Phones pause an app that isn't on screen and cut its connections, so a reply, a question about a file, a presentation or a picture used to stop with an error if you switched to another app meanwhile. Now:
+
+- **Long jobs run on the AI service by themselves** (questions about files, presentations, meeting notes, pictures, reading PDFs). The service carries on while you're in another app, and the app collects the result when you're back. It's then deleted from the service.
+- **Chat replies, voice typing and quick jobs** that were cut while you were away are asked again as soon as you're back, without an error. Time spent in another app doesn't count towards the app's time limits.
+- **If the phone closed the app** meanwhile (iPhones do that to apps left in the background for a while), the app picks up when you open it again: an unanswered message from the last 20 minutes is answered, and an interrupted presentation or picture from the last 30 minutes is made again.
+- This needs the November 2026 key keeper (see "Update the key keeper" above; replace `netlify/edge-functions/keys.js` too). Until then the app still asks again after you come back, but long jobs start over instead of carrying on.
+- Calls and the voice Translator are unchanged: they keep working as before when the screen locks.
 
 ## Owner controls: Microsoft Azure or OpenAI, and Saver, Best or Ultrafast
 
@@ -449,5 +459,7 @@ If you used a different project name, put your address (ending in `/keys`) as th
 - **Read aloud در Azure** با **GPT-Audio** و با همان صدای دوستانتان کار می‌کند (Azure مدل gpt-4o-mini-tts را در Sweden Central ندارد). قیمت‌های Azure همان قیمت‌های OpenAI است (در EU Data Zone حدود ۱۰٪ بیشتر)، فقط پولش را به Azure می‌دهید.
 - **راه‌اندازی (یک بار):** ۱) کد جدید `key-keeper/worker.js` را مثل دفعه‌های قبل در Cloudflare جایگزین کنید و Deploy بزنید (و فایل جدید `netlify/edge-functions/keys.js` را هم در GitHub). ۲) در Cloudflare، در «Variables and Secrets» یک Secret به نام `OWNER_CODE` با یک کد طولانی که فقط خودتان می‌دانید اضافه کنید. ۳) در Cloudflare: Storage & Databases ← KV ← Create، بعد در worker خودتان: Bindings (یا Settings ← Bindings) ← Add binding ← KV namespace با نام متغیر `FRIEND_KV`، و Deploy. ۴) (اختیاری) `AZURE_REGION` را `swedencentral` بگذارید. ۵) در برنامه: تنظیمات ← AI connection ← Owner controls ← کد مالک ← Unlock.
 - **مدل‌ها در Azure:** یا **خودکار** (پیشنهادی) — در Cloud Shell پورتال Azure دستوری را که در بخش انگلیسی «Run everything on Microsoft Azure in Sweden Central» آمده اجرا کنید و چهار مقدار `AZURE_TENANT_ID`، `AZURE_CLIENT_ID`، `AZURE_CLIENT_SECRET` و `AZURE_RESOURCE_ID` را در Cloudflare اضافه کنید، بعد در برنامه «Check for new models now» را بزنید؛ یا **دستی** — در ai.azure.com هر مدل فهرست‌شده در آن بخش را با نام استقرار دقیقاً برابر نام مدل Deploy کنید. تماس‌ها و تنظیمات صدایشان هیچ تغییری نکرده‌اند.
+
+**ادامه‌ی کار وقتی به برنامه‌ی دیگری می‌روید (۵ نوامبر):** قبلاً اگر وسط جواب دادن دوستتان، خواندن فایل یا ساختن پاورپوینت و تصویر به برنامه‌ی دیگری می‌رفتید، آیفون اتصال برنامه را قطع می‌کرد و پیام خطا می‌آمد. حالا کارهای طولانی (سؤال درباره‌ی فایل، پاورپوینت، خلاصه‌ی جلسه، تصویر، خواندن PDF) روی خود سرویس هوش مصنوعی ادامه پیدا می‌کنند و وقتی برگردید، نتیجه آماده است. جواب‌های چت و تبدیل گفتار به متن هم اگر وسط کار قطع شوند، به محض برگشتن شما دوباره و بی‌صدا درخواست می‌شوند. اگر گوشی در این فاصله برنامه را کاملاً بسته باشد، با باز کردن دوباره، پیامی که در ۲۰ دقیقه‌ی اخیر بی‌جواب مانده جواب داده می‌شود و پاورپوینت یا تصویری که نیمه‌کاره مانده دوباره ساخته می‌شود. برای این کار یک بار کد جدید `key-keeper/worker.js` را در Cloudflare جایگزین کنید و Deploy بزنید (و فایل `netlify/edge-functions/keys.js` را هم در GitHub). تماس‌ها و مترجم صوتی تغییری نکرده‌اند.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
