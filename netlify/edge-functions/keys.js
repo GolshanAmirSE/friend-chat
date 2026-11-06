@@ -45,7 +45,7 @@ function problem(request, status, message) {
       "Content-Type": "application/json",
       "Cache-Control": "no-store",
       "Access-Control-Allow-Origin": request.headers.get("origin") || "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, X-Invite-Code, X-Owner-Code",
       Vary: "Origin",
     },
