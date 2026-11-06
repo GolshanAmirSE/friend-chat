@@ -12,7 +12,7 @@
 const KEY_KEEPER = "https://friend-chat-keys.golshanamir.workers.dev";
 
 const PREFIX = "/keys";
-const PASS_ON = ["origin", "content-type", "accept", "x-invite-code", "x-owner-code", "access-control-request-method", "access-control-request-headers"];
+const PASS_ON = ["origin", "content-type", "accept", "x-invite-code", "x-owner-code", "x-friend-model", "access-control-request-method", "access-control-request-headers"];
 const DROP = new Set([
   "content-encoding",
   "content-length",

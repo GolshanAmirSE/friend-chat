@@ -65,7 +65,7 @@ Only the Gemini key is needed to start. The others are optional.
 
 The same Microsoft Foundry resource can also run **everything** instead of OpenAI (chat, files, pictures, voices, the Translator and voice calls) — see **Owner controls** below.
 
-## Update the key keeper (November 2026: tasks carry on when you leave the app)
+## Update the key keeper (6 November 2026: Claude models and automatic model choice)
 
 This version of the key keeper sends every AI request to the service **you** choose — **Microsoft Azure** (your Microsoft Foundry resource, for example in Sweden Central) or **OpenAI** — at the level you choose, and always uses the newest models. To update it:
 
@@ -75,9 +75,9 @@ This version of the key keeper sends every AI request to the service **you** cho
 
 If Cloudflare says the worker is connected to a GitHub repository (it was created with the Deploy button), replace `worker.js` in that repository instead and commit; Cloudflare deploys it by itself.
 
-To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"version": "2026-11-05 (owner controls, Azure or OpenAI, background jobs)"`, `"backgroundJobs": true`, `"aiService"` (which service answers) and `"modelsInUse"` (the model for each part of the app). Keys are never shown.
+To check: open your key keeper's address in a browser (for example `https://friend-chat-keys.<your-name>.workers.dev`). You should see `"version": "2026-11-06b (owner controls, Azure or OpenAI, background jobs, Claude first with GPT as backup, Azure priority for Ultrafast)"`, `"claude": "on"` (once Claude is deployed, see below), `"backgroundJobs": true`, `"aiService"` (which service answers) and `"modelsInUse"` (the model for each part of the app). Keys are never shown.
 
-Until you set up the owner controls (next section), the key keeper picks by itself: **Azure** when `AZURE_ENDPOINT` and `AZURE_KEY` are set, otherwise **OpenAI**, at the **Best** level. The backup route (Netlify) needs the new `netlify/edge-functions/keys.js` from this folder too (it now passes the owner code on).
+Until you set up the owner controls (next section), the key keeper picks by itself: **Azure** when `AZURE_ENDPOINT` and `AZURE_KEY` are set, otherwise **OpenAI**, at the **Best** level. The backup route (Netlify) needs the new `netlify/edge-functions/keys.js` from this folder too (it now passes the owner code and the chosen model on).
 
 **ChatGPT Voice check:** in the app, **Settings → Check ChatGPT Voice** makes a short test call with your microphone (like a real call; on a computer without a microphone it sends silence) and hangs up once your friend has said hello. Settings keeps two logs, **Latest call** and the check, showing whether the service answered, the connection, sound sent and received, and whether your friend talked; **Copy log** copies one so you can send it for help. If ChatGPT Voice can't connect or stays silent during a call, the app switches to the earlier live voice by itself after about 10 seconds.
 
@@ -102,7 +102,7 @@ Only you, the owner, can open them: **Settings → AI connection → Owner contr
   | --- | --- | --- |
   | **Saver** | GPT-6 Luna for chat, files and quick jobs · GPT-Image-2.5 Flare · GPT-Realtime-2.1 mini (Translator voice) · GPT-4o mini Transcribe · GPT-Audio mini (Azure) or GPT-4o mini TTS (OpenAI) for Read aloud · voice calls stay on GPT-Live | Lowest |
   | **Best** (recommended) | ChatGPT's newest model for chat · GPT-6.1 Sol for files, presentations and meeting notes · GPT-6 Luna for memory and quick jobs · GPT-Image-2.5 Sunburst · GPT-Live for voice calls · GPT-Realtime-2.1 · GPT-Transcribe · GPT-Audio 1.5 (Azure) or GPT-4o mini TTS (OpenAI) for Read aloud | Normal |
-  | **Ultrafast** | Best, plus OpenAI's **Ultrafast** mode for answers about files and presentations (several times quicker, about 6× the price for those answers). **Azure doesn't offer Ultrafast yet:** until it does, this level works exactly like Best, and the key keeper switches Ultrafast on by itself as soon as Azure offers it (it checks again every 6 hours). | Highest |
+  | **Ultrafast** | Best, plus the fastest mode for answers about files and presentations. On **OpenAI** that's OpenAI's own **Ultrafast** mode (several times quicker, about 6× the price for those answers). **Azure doesn't offer OpenAI's Ultrafast mode** (checked 6 November 2026); its fast lane is **priority processing** (a guaranteed speed, about 2× the price), which the key keeper uses through the `gpt-6-sol-priority` deployment (see "Ultrafast on Azure" below). With **Claude first** on, Claude Opus 5.5 Fast answers those questions first. | Highest |
 
 - **Newer models automatically** (on): when a newer model comes out (for example a GPT-6.2 Sol), the app uses it by itself. On Azure the key keeper also deploys it for you if automatic deployment is set up (below). Turn it off to keep today's models.
 - **OpenAI as backup** (on, shown when Azure is chosen and the key keeper has `OPENAI_KEY`): if Azure can't answer — a model isn't deployed yet, or it's too busy — OpenAI answers instead. Turn it off, or delete `OPENAI_KEY`, to use only Azure.
@@ -148,6 +148,77 @@ Good to know:
 - `gpt-chat-latest` on Azure is a preview model that Azure replaces every few months; with **Newer models automatically** on, the key keeper moves to each new version by itself.
 - To go back to OpenAI, choose **OpenAI** in the owner controls. Nothing else changes.
 - Calls and their sound settings are unchanged.
+
+## Claude models (Anthropic) on Azure, and the app choosing the model for each task
+
+Your Microsoft Foundry resource can also run **Claude** models from Anthropic, billed on your Azure bill (Azure Marketplace, pay-as-you-go needed; free trials can't use them). The key keeper talks to Claude in Claude's own format and turns the answers into what the app expects, so nothing else changes.
+
+### Deploy the Claude models (once, about 10 minutes)
+
+1. Open Microsoft Foundry (<https://ai.azure.com>) with the **New Foundry** switch on, and open your resource (for example `amir-friend-chat`).
+2. **Discover → Models**, search for **`claude-sonnet-5-5`** and open it.
+3. **Deploy → Custom settings.** Read the **Azure Marketplace** terms, choose an industry and select **Agree and Proceed**.
+4. Keep **Hosted on Azure** (version 2), deployment type **Global Standard**, and set the **deployment name exactly the same as the model name** (`claude-sonnet-5-5`). Select **Deploy**.
+5. Do the same for **`claude-haiku-5-5`**, **`claude-opus-5-5`** and **`claude-opus-5-5-fast`** (the last one is only used at the Ultrafast level).
+6. In the app: **Settings → AI connection → Owner controls → Check for new models now.** **Claude first, OpenAI GPT as backup** is on, and **Models in use** shows Claude Sonnet 5.5 for chat and long texts.
+
+Nothing to add in Cloudflare: the key keeper uses the same `AZURE_ENDPOINT` and `AZURE_KEY`. Only if your resource doesn't offer Claude and you deploy it on **another** Foundry resource, add `CLAUDE_ENDPOINT` (Text, that resource's address) and `CLAUDE_KEY` (Secret, its key).
+
+Good to know:
+
+- **Global Standard** means Azure may process Claude requests in any of its regions, not only in the EU (Azure offers Claude's Data Zone only in the US). If answers must stay in the EU, switch **Claude first** off in the owner controls and use the Best level; everything goes back to GPT in Sweden Central.
+- With **automatic deployment** set up (above), the key keeper also deploys newer versions of the Claude models you already have (for example a future `claude-sonnet-6`), when Azure lets it; the first time, Azure may ask you to accept that model's terms in Foundry yourself.
+- If a Claude model isn't deployed, is busy or refuses a question, GPT answers instead, without an error. The owner controls list any Claude model the key keeper couldn't find.
+- Claude's web search (for weather, news and so on) is billed by Azure per search. If your resource doesn't offer it, questions that need the internet go to GPT.
+
+### Claude first, OpenAI GPT as backup (owner switch)
+
+**Settings → AI connection → Owner controls → Claude first, OpenAI GPT as backup.**
+
+- **On** (the default once Claude is deployed): at every level Claude answers first, and GPT steps in whenever Claude can't (not deployed, busy, or the question needs something only GPT does).
+- **Off:** every level works exactly as before Claude was added — GPT only, the same models as the "Off" column below.
+
+### How the app chooses the model (Automatic)
+
+The app looks at the kind of task and picks the model within the **level** you chose in the owner controls. The first model answers; the next ones are the backups.
+
+**Claude first: On**
+
+| Task | Saver | Best (recommended) | Ultrafast |
+| --- | --- | --- | --- |
+| Everyday chat and short typed translations | **Claude Haiku 5.5**, then GPT-6 Luna, then ChatGPT | **Claude Sonnet 5.5**, then ChatGPT (chat-latest), then GPT-6 Luna | **Claude Sonnet 5.5**, then ChatGPT, then GPT-6 Luna |
+| Long texts: writing, rewriting, long translations, code | **Claude Haiku 5.5**, then GPT-6 Luna, then ChatGPT | **Claude Sonnet 5.5**, then ChatGPT, then GPT-6 Luna | **Claude Sonnet 5.5**, then ChatGPT, then GPT-6 Luna |
+| Meeting notes and other deeper work typed as text | **Claude Haiku 5.5**, then GPT-6 Luna, then GPT-6.1 Sol | **Claude Opus 5.5**, then GPT-6.1 Sol, then GPT-6 Luna | **Claude Opus 5.5 Fast**, then Claude Opus 5.5, then GPT-6 Sol (priority), then GPT-6.1 Sol |
+| Questions about attached files (PDF, Word…), presentations, pictures | GPT, as before | GPT-6.1 Sol | **GPT-6 Sol (priority)**, then GPT-6.1 Sol |
+| Pictures, voice calls, the Translator, voice typing, Read aloud | GPT, as before | GPT, as before | GPT, as before |
+
+**Claude first: Off** (the setup from before Claude)
+
+| Task | Saver | Best (recommended) | Ultrafast |
+| --- | --- | --- | --- |
+| Chat, translations, long texts | GPT-6 Luna, then ChatGPT | ChatGPT (chat-latest), then GPT-6 Luna | ChatGPT (chat-latest), then GPT-6 Luna |
+| Files, presentations, meeting notes | GPT-6 Luna, then GPT-6.1 Sol | GPT-6.1 Sol, then GPT-6 Luna | **GPT-6 Sol (priority)**, then GPT-6.1 Sol, then GPT-6 Luna |
+| Memory, key points, quick jobs | GPT-6 Luna | GPT-6 Luna | GPT-6 Luna |
+
+A message counts as a long text when it's about 700 characters or more, or contains code. Answers that need the internet follow the same table (Claude searches with its own web search). Attached files always go to GPT (it reads them directly). When a slow Claude answer takes more than about 50 seconds, the app gets a "still working" note and the finished answer is kept for it, like GPT's background answers.
+
+### Ultrafast on Azure: GPT-6 Sol with priority processing
+
+OpenAI's **Ultrafast** mode exists only on OpenAI's own service; Azure doesn't offer it (checked 6 November 2026). Azure's fast lane is **priority processing**: in Sweden Central it works on **Global Standard** deployments of GPT-6 Sol (not yet GPT-6.1 Sol, and not on EU Data Zone deployments), with a target of 99% of answers faster than 80 tokens a second, at about twice the normal price.
+
+The key keeper uses it only at the **Ultrafast** level, for files, presentations and meeting notes. It's deployed on your resource as **`gpt-6-sol-priority`** (Global Standard, Priority processing on). To deploy it yourself on another resource: Foundry → **Discover → Models → gpt-6-sol → Deploy → Custom settings**, deployment name `gpt-6-sol-priority`, Global Standard, **Priority processing: Enabled**, Deploy. A different name works too: add `AZURE_PRIORITY_DEPLOYMENT` (Text) in Cloudflare with that name. If it's missing, Ultrafast answers come from GPT-6.1 Sol at normal speed and the owner controls show Ultrafast as "waiting". Global Standard means Azure may process these answers outside the EU.
+
+### Let people choose a model (optional)
+
+With **Let people choose a model** on in the owner controls, everyone gets **Settings → AI connection → Model for answers**. **Automatic (recommended)** is the default; the other choices depend on your level:
+
+| Level | Choices |
+| --- | --- |
+| Saver | Automatic · GPT (OpenAI) · Claude Haiku |
+| Best | Automatic · GPT (OpenAI) · Claude Haiku · Claude Sonnet · Claude Opus |
+| Ultrafast | Automatic · GPT (OpenAI) · Claude Haiku · Claude Sonnet · Claude Opus · Claude Opus Fast |
+
+A chosen model answers chat, translations, files and presentations; if it can't, the automatic choice takes over. Voice calls, pictures, Read aloud and quick jobs always use the app's usual models. If you lower the level, choices that are no longer allowed fall back to Automatic by themselves. Switch **Claude first, OpenAI GPT as backup** off to use only GPT again.
 
 ## Make it ready to use — no keys for your visitors
 
@@ -370,7 +441,7 @@ If you used a different project name, put your address (ending in `/keys`) as th
 | --- | --- |
 | `index.html` | The whole app in one file |
 | `friend-config.json` | The address of your key keeper, then the backup route (empty = everyone adds their own keys). **Never put keys here.** |
-| `key-keeper/worker.js` | The key keeper to paste into Cloudflare (no keys inside) |
+| `key-keeper/worker.js` | The key keeper to paste into Cloudflare (no keys inside). Version 2026-11-06 adds Claude and the automatic model choice |
 | `netlify.toml`, `netlify/edge-functions/keys.js` | The backup route on Netlify (no keys inside) |
 | `manifest.webmanifest`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `apple-touch-icon.png` | App name and icons for phones |
 | `README.md` | This page |
@@ -463,3 +534,5 @@ If you used a different project name, put your address (ending in `/keys`) as th
 **ادامه‌ی کار وقتی به برنامه‌ی دیگری می‌روید (۵ نوامبر):** قبلاً اگر وسط جواب دادن دوستتان، خواندن فایل یا ساختن پاورپوینت و تصویر به برنامه‌ی دیگری می‌رفتید، آیفون اتصال برنامه را قطع می‌کرد و پیام خطا می‌آمد. حالا کارهای طولانی (سؤال درباره‌ی فایل، پاورپوینت، خلاصه‌ی جلسه، تصویر، خواندن PDF) روی خود سرویس هوش مصنوعی ادامه پیدا می‌کنند و وقتی برگردید، نتیجه آماده است. جواب‌های چت و تبدیل گفتار به متن هم اگر وسط کار قطع شوند، به محض برگشتن شما دوباره و بی‌صدا درخواست می‌شوند. اگر گوشی در این فاصله برنامه را کاملاً بسته باشد، با باز کردن دوباره، پیامی که در ۲۰ دقیقه‌ی اخیر بی‌جواب مانده جواب داده می‌شود و پاورپوینت یا تصویری که نیمه‌کاره مانده دوباره ساخته می‌شود. برای این کار یک بار کد جدید `key-keeper/worker.js` را در Cloudflare جایگزین کنید و Deploy بزنید (و فایل `netlify/edge-functions/keys.js` را هم در GitHub). تماس‌ها و مترجم صوتی تغییری نکرده‌اند.
 
 **دیدن با دوربین:** در تماس تصویری، چیزی را جلوی دوربین بگیرید و بپرسید «این چیه؟» — وقتی حرف می‌زنید، دوستتان یک عکس تازه از دوربین شما می‌گیرد و می‌بیند چه نشانش می‌دهید (روی تصویر دوربین شما نوشته می‌شود «… can see this»). با دکمه‌ی چرخش دوربین بین دوربین جلو و پشت جابه‌جا شوید. برنامه هر بار که باز می‌شود خودش را به‌روز می‌کند؛ نسخه را در پایین تنظیمات (Settings) ببینید.
+
+**مدل‌های Claude و انتخاب خودکار مدل (۶ نوامبر ۲۰۲۶):** حالا مدل‌های Claude از Anthropic هم روی همان منبع Microsoft Foundry شما در Azure پاسخ می‌دهند. یک بار در Microsoft Foundry مدل‌های `claude-sonnet-5-5`، `claude-haiku-5-5`، `claude-opus-5-5` و `claude-opus-5-5-fast` را با «Deploy ← Custom settings» مستقر کنید (شرایط Azure Marketplace را بپذیرید، Hosted on Azure و Global Standard، و نام استقرار دقیقاً همان نام مدل). کد جدید key keeper را در Cloudflare جایگزین کنید و فایل `netlify/edge-functions/keys.js` را هم به‌روز کنید. در Owner controls کلید **«Claude first, OpenAI GPT as backup»** را روشن کنید: در هر سطح اول Claude پاسخ می‌دهد (Saver: Claude Haiku؛ Best: Claude Sonnet و برای کارهای عمیق‌تر Claude Opus؛ Ultrafast: Claude Sonnet و برای کارهای عمیق‌تر Claude Opus Fast) و هر وقت Claude نتواند، GPT بدون خطا پاسخ می‌دهد. اگر خاموشش کنید، هر سه سطح دقیقاً مثل قبل و فقط با GPT کار می‌کنند. **Ultrafast در Azure:** حالت Ultrafast مخصوص سرویس خود OpenAI است و Azure آن را ندارد؛ معادل سریع Azure «priority processing» است که روی استقرار `gpt-6-sol-priority` (Global Standard، حدود ۲ برابر قیمت) فعال شده و فقط در سطح Ultrafast برای فایل‌ها، ارائه‌ها و یادداشت‌های جلسه به کار می‌رود. با روشن کردن «Let people choose a model» در Owner controls، همه در «تنظیمات ← مدل پاسخ‌ها» می‌توانند «خودکار» را نگه دارند یا خودشان GPT یا یکی از مدل‌های Claude را انتخاب کنند. تماس‌ها و صدای آن‌ها تغییری نکرده‌اند.
